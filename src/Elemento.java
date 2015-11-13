@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import javax.swing.JButton;
+
 /*
  * 
  * Bombeiro, ambulancia, refugados e vitimas extend
@@ -8,6 +10,7 @@ public class Elemento extends Thread {
 	private int id;
 	private int l; //linha
 	private int c; //coluna
+	public JButton bt; //botao da interface
 
 	public Elemento(int id, int l, int c) {
 		this.id = id;
@@ -23,23 +26,30 @@ public class Elemento extends Thread {
 	public void move() {
 		Ambiente amb = Ambiente.getInstance();
 		
-		amb.removeElemento(this.l, this.c);
-		
+		int la = this.l;
+		int ca = this.c;
 		int valid = 0, nl, nc;
 		while (true) {
 			nl = Util.rand(-1, 1) + this.l;
 			nc = Util.rand(-1, 1) + this.c;
 			
+//			if (nl == this.l && nc == this.c) {
+//				continue;
+//			}
+			
 			valid = amb.checkPosition(nl, nc);
 			if (valid == 1) {
-				this.l = this.l + nl;
-				this.c = this.c + nc;
+				this.l = nl;
+				this.c = nc;
 				break;
 			}
 		}
+
+		amb.removeElemento(la, ca);
 		
 		amb.setElemento(this);
-		
+
+//    	amb.printMatriz();
 	}
 
 	public void run(){

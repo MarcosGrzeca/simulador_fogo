@@ -25,19 +25,15 @@ public class Ambiente extends Frame {
 	
     private int linhas = 20;
     private int colunas = 20;
-    
+
 	private ArrayList<ArrayList> m;
 	
-//	public int qtdClick = 0;
-//	public BotaoTab btAnt;
 	private Panel painel;
 	
-//    private int xOld;
-//    private int yOld;
-	
-	public BufferedImage imgFundoBranca;
-	public BufferedImage imgFundoPreta;
-	public BufferedImage imgBombeiro;
+	public ImageIcon imgFundoBranca;
+	public ImageIcon imgFundoPreta;
+	public ImageIcon imgBombeiro;
+	public ImageIcon imgRefugiado;
 	
 	public static Ambiente getInstance() {
 		if(instance == null) {
@@ -55,16 +51,26 @@ public class Ambiente extends Frame {
         this.painel = new Panel(new GridLayout(linhas, colunas));
 //        this.painel.setPreferredSize(new Dimension(600, 600));
 
+        BufferedImage img;
         try {
-            imgFundoBranca = ImageIO.read(getClass().getResourceAsStream("img/fundo_branco.jpg"));
+        	img = ImageIO.read(getClass().getResourceAsStream("img/fundo_branco.jpg"));
+            imgFundoBranca = new ImageIcon(img);
         } catch (IOException e) {}
 
         try {
-            imgFundoPreta = ImageIO.read(getClass().getResourceAsStream("img/fundo_escuro.jpg"));
+        	img = ImageIO.read(getClass().getResourceAsStream("img/fundo_escuro.jpg"));
+        	imgFundoPreta = new ImageIcon(img);
         } catch (IOException e) {}
 
         try {
-            imgBombeiro = ImageIO.read(getClass().getResourceAsStream("img/bombeiro.png"));
+        	img = ImageIO.read(getClass().getResourceAsStream("img/bombeiro.png"));
+            imgBombeiro = new ImageIcon(img);
+        } catch (IOException e) {}
+
+        try {
+        	img = ImageIO.read(getClass().getResourceAsStream("img/refugiado.jpg"));
+        	imgRefugiado = new ImageIcon(img);
+        	
         } catch (IOException e) {}
         
         this.setLayout(new BorderLayout());
@@ -83,45 +89,71 @@ public class Ambiente extends Frame {
     }
     
     public void init() {
+    	Elemento e;
         this.m = new ArrayList<ArrayList>();
         for (int i = 0; i < this.linhas; i++) {
         	this.m.add(new ArrayList<Elemento>());
         	
         	for (int j = 0; j < this.colunas; j++) {
-        		this.m.get(i).add(null);
+        		JButton bt = new BotaoTab(this.getBotaoElemento(null));
+        		bt.setBorder(new LineBorder(new Color(205,201,201)));
+        		
+        		e = new Elemento(0, i, j);
+        		e.bt = bt;
+        		this.m.get(i).add(e);
+        		
+        		this.painel.add(bt);
         	}
         }
         
-        Bombeiro b = new Bombeiro(1, 0, 0);
-        this.setElemento(b);
-        this.setElemento(new Bombeiro(2, 3, 5));
-        this.setElemento(new Bombeiro(3, 7, 8));
-        
-        b.start();
-        
-        this.atualizaInterface();
-
-//        this.painel.remove(0);
-        System.out.println(this.painel.getComponent(0));
-        
+        this.criaElementos();
     }
-    
-    public void setElemento(Elemento e) {
-    	int l = e.getLinha();
-    	int c = e.getColuna();
-    	this.m.get(l).set(c, e);
+
+    public void criaElementos() {
+
+    	int i, randl, randc;
+    	int nbombeiros = 5;
+    	for (i = 1; i <= nbombeiros; i++) {
+    		randl = Util.rand(0, this.linhas-1);
+    		randc = Util.rand(0, this.colunas-1);
+    		
+	        Bombeiro b = new Bombeiro(i, randl, randc);
+	        b.start();
+    	}
     	
-//    	JButton bt = this.getBotaoElemento(e);
-////    	System.out.println((l * this.colunas) + c);
-//    	this.setComponentZOrder(bt, (l * this.colunas) + c);
+    	int nrefugiados = 10;
+    	for (i = 1; i <= nrefugiados; i++) {
+    		randl = Util.rand(0, this.linhas-1);
+    		randc = Util.rand(0, this.colunas-1);
+    		
+    		Refugiado r = new Refugiado(i, randl, randc);
+	        r.start();
+    	}
+
     }
     
     public Elemento getElemento(int l, int c) {
     	return (Elemento) this.m.get(l).get(c);
     }
     
+    public void setElemento(Elemento e) {
+    	int l = e.getLinha();
+    	int c = e.getColuna();
+    	JButton bt = this.getElemento(l, c).bt;
+    	
+    	bt.setIcon(this.getBotaoElemento(e));
+    	e.bt = bt;
+    	
+    	this.m.get(l).set(c, e);
+    }
+    
     public void removeElemento(int l, int c) {
-    	this.m.get(l).set(c, null);
+    	JButton bt = this.getElemento(l, c).bt;
+    	
+    	Elemento e = new Vazio(0, l, c);
+    	e.bt = bt;
+    	e.bt.setIcon(this.getBotaoElemento(null));
+    	this.m.get(l).set(c, e);
     }
     
     public int checkPosition(int l, int c) {
@@ -140,45 +172,27 @@ public class Ambiente extends Frame {
     		}
     		System.out.println();
     	}
+		System.out.println();
     }
     
-	public void atualizaInterface(){
-		JButton bt = null;
-		
-		for (int i = 0; i < this.m.size(); i++) {
-            for (int j = 0; j < this.m.get(i).size(); j++) {
-            	bt = this.getBotaoElemento(this.getElemento(i, j));
-            	this.painel.add(bt);
-            }
-        }
-
-//		this.pack();
-	}
-	
-	public JButton getBotaoElemento(Elemento e) {
-		JButton bt = null;
+	public ImageIcon getBotaoElemento(Elemento e) {
+		ImageIcon img = null;
 		if (e instanceof Bombeiro) {
-    		bt = new BotaoTab(new ImageIcon(imgBombeiro));
+    		img = imgBombeiro;
+		} else if (e instanceof Refugiado) {
+			img = imgRefugiado;
     	} else {
-    		bt = new BotaoTab(new ImageIcon(imgFundoBranca));
-    		bt.setBorder(new LineBorder(new Color(205,201,201) ));
+    		img = imgFundoBranca;
     	}
-		return bt;
+		return img;
 	}
 
 	public class BotaoTab extends JButton implements MouseListener {  
-	    
-//	    private int x;
-//	    private int y;
-//	    private int corFundo;
 	    
 	    //usa o construtor da classe super (JButton), e adiciona o mouselistener ao objeto  
 	    BotaoTab(ImageIcon img) //, int x, int y, int corFundo)  
 	    {  
 	        this.setIcon(img);
-//	        this.x = x;
-//	        this.y = y;
-//	        this.corFundo = corFundo;
 	        
 	        this.setBackground(Color.WHITE);
 	        this.setBorder(new LineBorder(Color.WHITE, 0));
@@ -191,35 +205,6 @@ public class Ambiente extends Frame {
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
 			// TODO Auto-generated method stub
-			
-//			// Primeiro clique, devo aguardar o proximo
-//			if (qtdClick == 0){
-//				
-//				this.setBorder(new LineBorder(Color.BLACK, 6));
-//				this.setContentAreaFilled(false);
-//				
-//				qtdClick++;
-//				btAnt = this;
-//				
-//				xOld = x;
-//				yOld = y;
-//			
-//			}else{
-//				
-//				if (btAnt.corFundo == 0)
-//					btAnt.setBorder(new LineBorder(Color.WHITE, 0));
-//				else if (btAnt.corFundo == 1)
-//					btAnt.setBorder(new LineBorder(new Color(205,201,201) ));
-//				
-//				painel.removeAll();
-//				
-////				atualizaInterface(damas.getDamas(), painel);
-//				
-//				painel.repaint();
-//				
-//				qtdClick = 0;
-//				
-//			}
 			
 		}
 		
