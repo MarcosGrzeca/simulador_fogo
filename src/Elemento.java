@@ -2,6 +2,6 @@
  * 
  * Bombeiro, ambulancia, refugados e vitimas extend
  */
-public class Elemento {
+public class Elemento extends Thread {
 
 }

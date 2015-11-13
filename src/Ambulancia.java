@@ -1,4 +1,4 @@
 
-public class Ambulancia {
+public class Ambulancia extends Elemento {
 
 }

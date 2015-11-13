@@ -1,4 +1,4 @@
 
-public class Fogo {
+public class Fogo extends Elemento {
 
 }

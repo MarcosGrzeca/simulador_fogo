@@ -1,4 +1,4 @@
 
-public class Vitima {
+public class Vitima extends Elemento {
 
 }

@@ -1,4 +1,4 @@
 
-public class Bombeiro {
+public class Bombeiro extends Elemento {
 
 }

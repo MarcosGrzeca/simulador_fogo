@@ -1,4 +1,4 @@
 
-public class Refugiado {
+public class Refugiado extends Elemento {
 
 }

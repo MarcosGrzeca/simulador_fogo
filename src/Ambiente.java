@@ -20,10 +20,7 @@ public class Ambiente extends Frame {
 
 	public int qtdClick = 0;
 	public BotaoTab btAnt;
-	public int jogador = 1;
-//	public EstadoDamas damas;
 	public Panel tab;
-	public int nivel = 3;
 	
     private int xOld;
     private int yOld;
@@ -33,16 +30,10 @@ public class Ambiente extends Frame {
     
     boolean tipo = true;
 	
-	public BufferedImage imgBrancas;
-	public BufferedImage imgPretas;
-	public BufferedImage imgPretaDamas;
-	public BufferedImage imgBrancaDamas;
 	public BufferedImage imgFundoBranca;
 	public BufferedImage imgFundoPreta;
 	
 	public class BotaoTab extends JButton implements MouseListener {  
-	    
-	    JButton bt = new JButton();
 	    
 	    private int x;
 	    private int y;
@@ -55,6 +46,7 @@ public class Ambiente extends Frame {
 	        this.x = x;
 	        this.y = y;
 	        this.corFundo = corFundo;
+	        this.setText("Teste");
 	        
 	        this.setBackground(Color.WHITE);
 	        this.setBorder(new LineBorder(Color.WHITE, 0));
@@ -68,34 +60,34 @@ public class Ambiente extends Frame {
 		public void mouseClicked(MouseEvent arg0) {
 			// TODO Auto-generated method stub
 			
-			// Primeiro clique, devo aguardar o proximo
-			if (qtdClick == 0){
-				
-				this.setBorder(new LineBorder(Color.BLACK, 6));
-				this.setContentAreaFilled(false);
-				
-				qtdClick++;
-				btAnt = this;
-				
-				xOld = x;
-				yOld = y;
-			
-			}else{
-				
-				if (btAnt.corFundo == 0)
-					btAnt.setBorder(new LineBorder(Color.WHITE, 0));
-				else if (btAnt.corFundo == 1)
-					btAnt.setBorder(new LineBorder(new Color(205,201,201) ));
-				
-				tab.removeAll();
-				
-//				atualizaTab(damas.getDamas(), tab);
-				
-				tab.repaint();
-				
-				qtdClick = 0;
-				
-			}
+//			// Primeiro clique, devo aguardar o proximo
+//			if (qtdClick == 0){
+//				
+//				this.setBorder(new LineBorder(Color.BLACK, 6));
+//				this.setContentAreaFilled(false);
+//				
+//				qtdClick++;
+//				btAnt = this;
+//				
+//				xOld = x;
+//				yOld = y;
+//			
+//			}else{
+//				
+//				if (btAnt.corFundo == 0)
+//					btAnt.setBorder(new LineBorder(Color.WHITE, 0));
+//				else if (btAnt.corFundo == 1)
+//					btAnt.setBorder(new LineBorder(new Color(205,201,201) ));
+//				
+//				tab.removeAll();
+//				
+////				atualizaTab(damas.getDamas(), tab);
+//				
+//				tab.repaint();
+//				
+//				qtdClick = 0;
+//				
+//			}
 			
 		}
 		
