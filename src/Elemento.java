@@ -7,9 +7,9 @@ import javax.swing.JButton;
  * Bombeiro, ambulancia, refugados e vitimas extend
  */
 public class Elemento extends Thread {
-	private int id;
-	private int l; //linha
-	private int c; //coluna
+	protected int id;
+	protected int l; //linha
+	protected int c; //coluna
 	public JButton bt; //botao da interface
 
 	public Elemento(int id, int l, int c) {
@@ -23,7 +23,18 @@ public class Elemento extends Thread {
 		return null;
 	}
 	
-	public void move() {
+	public void move(int nova_linha, int nova_coluna) {
+		Ambiente amb = Ambiente.getInstance();
+		
+		amb.removeElemento(this.l, this.c);
+		
+		this.l = nova_linha;
+		this.c = nova_coluna;
+		
+		amb.setElemento(this);
+	}
+
+	public void andar() {
 		Ambiente amb = Ambiente.getInstance();
 		
 		int la = this.l;
@@ -39,22 +50,16 @@ public class Elemento extends Thread {
 			
 			valid = amb.checkPosition(nl, nc);
 			if (valid == 1) {
-				this.l = nl;
-				this.c = nc;
 				break;
 			}
 		}
-
-		amb.removeElemento(la, ca);
 		
-		amb.setElemento(this);
-
-//    	amb.printMatriz();
+		this.move(nl, nc);
 	}
-
+	
 	public void run(){
 		while(true) {
-			this.move();
+			this.andar();
 			
 			try{
 			    this.sleep(1000);

@@ -24,7 +24,7 @@ public class Ambiente extends Frame {
 	private static Ambiente instance = null;
 	
     private int linhas = 20;
-    private int colunas = 20;
+	private int colunas = 20;
 
 	private ArrayList<ArrayList> m;
 	
@@ -34,6 +34,7 @@ public class Ambiente extends Frame {
 	public ImageIcon imgFundoPreta;
 	public ImageIcon imgBombeiro;
 	public ImageIcon imgRefugiado;
+	public ImageIcon imgFogo;
 	
 	public static Ambiente getInstance() {
 		if(instance == null) {
@@ -56,21 +57,21 @@ public class Ambiente extends Frame {
         	img = ImageIO.read(getClass().getResourceAsStream("img/fundo_branco.jpg"));
             imgFundoBranca = new ImageIcon(img);
         } catch (IOException e) {}
-
         try {
         	img = ImageIO.read(getClass().getResourceAsStream("img/fundo_escuro.jpg"));
         	imgFundoPreta = new ImageIcon(img);
         } catch (IOException e) {}
-
         try {
         	img = ImageIO.read(getClass().getResourceAsStream("img/bombeiro.png"));
             imgBombeiro = new ImageIcon(img);
         } catch (IOException e) {}
-
         try {
         	img = ImageIO.read(getClass().getResourceAsStream("img/refugiado.jpg"));
         	imgRefugiado = new ImageIcon(img);
-        	
+        } catch (IOException e) {}
+        try {
+        	img = ImageIO.read(getClass().getResourceAsStream("img/fogo.jpg"));
+        	imgFogo = new ImageIcon(img);
         } catch (IOException e) {}
         
         this.setLayout(new BorderLayout());
@@ -130,6 +131,15 @@ public class Ambiente extends Frame {
 	        r.start();
     	}
 
+    	int nfogo = 3;
+    	for (i = 1; i <= nfogo; i++) {
+    		randl = Util.rand(0, this.linhas-1);
+    		randc = Util.rand(0, this.colunas-1);
+    		
+    		Fogo r = new Fogo(i, randl, randc);
+	        r.start();
+    	}
+
     }
     
     public Elemento getElemento(int l, int c) {
@@ -181,10 +191,28 @@ public class Ambiente extends Frame {
     		img = imgBombeiro;
 		} else if (e instanceof Refugiado) {
 			img = imgRefugiado;
+		} else if (e instanceof Fogo) {
+			img = imgFogo;
     	} else {
     		img = imgFundoBranca;
     	}
 		return img;
+	}
+	
+	public int getLinhas() {
+		return linhas;
+	}
+
+	public void setLinhas(int linhas) {
+		this.linhas = linhas;
+	}
+
+	public int getColunas() {
+		return colunas;
+	}
+
+	public void setColunas(int colunas) {
+		this.colunas = colunas;
 	}
 
 	public class BotaoTab extends JButton implements MouseListener {  
