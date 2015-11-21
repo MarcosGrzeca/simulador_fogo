@@ -41,7 +41,6 @@ public class Elemento extends Thread {
 		while (true) {
 			nl = Util.rand(-1, 1) + this.l;
 			nc = Util.rand(-1, 1) + this.c;
-			
 //			if (nl == this.l && nc == this.c) {
 //				continue;
 //			}
@@ -51,17 +50,29 @@ public class Elemento extends Thread {
 				break;
 			}
 		}
+		amb.getSemaforo(nl, nc).down();
 		
+//		amb.printMatriz();
+		System.out.println("t "+this.id + " l="+nl+" c="+nc);
+		amb.printSemaforos();
 		this.move(nl, nc);
+
+		try{
+		    this.sleep(this.id*1000);
+		}catch(Exception e){}
+		
+		amb.getSemaforo(this.l, this.c).up();
+		
 	}
 	
 	public void run(){
+//		try{
+//		    this.sleep(1000);
+//		}catch(Exception e){}
+		
 		while(true) {
 			this.andar();
 			
-			try{
-			    this.sleep(1000);
-			}catch(Exception e){}
 		}
 	}
 	

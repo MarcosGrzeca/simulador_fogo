@@ -22,11 +22,12 @@ import javax.swing.border.LineBorder;
 public class Ambiente extends Frame {
 
 	private static Ambiente instance = null;
-	
-    private int linhas = 18;
-	private int colunas = 18;
+
+    private int linhas = 5;
+	private int colunas = 5;
 
 	private ArrayList<ArrayList> m;
+	private ArrayList<ArrayList> semaforos;
 	
 	private Panel painel;
 	
@@ -92,16 +93,20 @@ public class Ambiente extends Frame {
     public void init() {
     	Elemento e;
         this.m = new ArrayList<ArrayList>();
+        this.semaforos = new ArrayList<ArrayList>();
         for (int i = 0; i < this.linhas; i++) {
         	this.m.add(new ArrayList<Elemento>());
+        	this.semaforos.add(new ArrayList<Semaforo>());
         	
         	for (int j = 0; j < this.colunas; j++) {
         		JButton bt = new BotaoTab(this.getBotaoElemento(null));
         		bt.setBorder(new LineBorder(new Color(205,201,201)));
         		
-        		e = new Elemento(0, i, j);
+        		e = new Vazio(0, i, j);
         		e.bt = bt;
         		this.m.get(i).add(e);
+
+        		this.semaforos.get(i).add(new Semaforo(1));
         		
         		this.painel.add(bt);
         	}
@@ -111,9 +116,8 @@ public class Ambiente extends Frame {
     }
 
     public void criaElementos() {
-
     	int i, randl, randc;
-    	int nbombeiros = 5;
+    	int nbombeiros = 3;
     	for (i = 1; i <= nbombeiros; i++) {
     		randl = Util.rand(0, this.linhas-1);
     		randc = Util.rand(0, this.colunas-1);
@@ -122,7 +126,7 @@ public class Ambiente extends Frame {
 	        b.start();
     	}
     	
-    	int nrefugiados = 10;
+    	int nrefugiados = 3;
     	for (i = 1; i <= nrefugiados; i++) {
     		randl = Util.rand(0, this.linhas-1);
     		randc = Util.rand(0, this.colunas-1);
@@ -131,14 +135,14 @@ public class Ambiente extends Frame {
 	        r.start();
     	}
 
-    	int nfogo = 3;
-    	for (i = 1; i <= nfogo; i++) {
-    		randl = Util.rand(0, this.linhas-1);
-    		randc = Util.rand(0, this.colunas-1);
-    		
-    		Fogo r = new Fogo(i, randl, randc);
-	        r.start();
-    	}
+//    	int nfogo = 3;
+//    	for (i = 1; i <= nfogo; i++) {
+//    		randl = Util.rand(0, this.linhas-1);
+//    		randc = Util.rand(0, this.colunas-1);
+//    		
+//    		Fogo r = new Fogo(i, randl, randc);
+//	        r.start();
+//    	}
 
     }
     
@@ -179,6 +183,20 @@ public class Ambiente extends Frame {
     	for (int i = 0; i < this.m.size(); i++) {
     		for (int j = 0; j < this.m.get(i).size(); j++) {
     			System.out.print(this.getElemento(i, j)+" - ");
+    		}
+    		System.out.println();
+    	}
+		System.out.println();
+    }
+    
+    public Semaforo getSemaforo(int l, int c) {
+    	return (Semaforo) this.semaforos.get(l).get(c);
+    }
+
+    public void printSemaforos() {
+    	for (int i = 0; i < this.semaforos.size(); i++) {
+    		for (int j = 0; j < this.semaforos.get(i).size(); j++) {
+    			System.out.print(this.getSemaforo(i, j).getTotal()+" - ");
     		}
     		System.out.println();
     	}
