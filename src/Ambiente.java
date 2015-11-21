@@ -23,8 +23,8 @@ public class Ambiente extends Frame {
 
 	private static Ambiente instance = null;
 	
-    private int linhas = 20;
-	private int colunas = 20;
+    private int linhas = 18;
+	private int colunas = 18;
 
 	private ArrayList<ArrayList> m;
 	

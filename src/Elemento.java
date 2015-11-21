@@ -37,8 +37,6 @@ public class Elemento extends Thread {
 	public void andar() {
 		Ambiente amb = Ambiente.getInstance();
 		
-		int la = this.l;
-		int ca = this.c;
 		int valid = 0, nl, nc;
 		while (true) {
 			nl = Util.rand(-1, 1) + this.l;
