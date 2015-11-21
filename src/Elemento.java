@@ -53,12 +53,14 @@ public class Elemento extends Thread {
 		amb.getSemaforo(nl, nc).down();
 		
 //		amb.printMatriz();
-		System.out.println("t "+this.id + " l="+nl+" c="+nc);
-		amb.printSemaforos();
-		this.move(nl, nc);
-
+//		System.out.println("t "+this.id + " l="+nl+" c="+nc);
+//		amb.printSemaforos();
+		
+		if (amb.getElemento(nl, nc) instanceof Vazio) {
+			this.move(nl, nc);
+		}
 		try{
-		    this.sleep(this.id*1000);
+		    this.sleep(1000);
 		}catch(Exception e){}
 		
 		amb.getSemaforo(this.l, this.c).up();

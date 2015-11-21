@@ -23,8 +23,8 @@ public class Ambiente extends Frame {
 
 	private static Ambiente instance = null;
 
-    private int linhas = 5;
-	private int colunas = 5;
+    private int linhas = 15;
+	private int colunas = 15;
 
 	private ArrayList<ArrayList> m;
 	private ArrayList<ArrayList> semaforos;
@@ -117,7 +117,7 @@ public class Ambiente extends Frame {
 
     public void criaElementos() {
     	int i, randl, randc;
-    	int nbombeiros = 3;
+    	int nbombeiros = 5;
     	for (i = 1; i <= nbombeiros; i++) {
     		randl = Util.rand(0, this.linhas-1);
     		randc = Util.rand(0, this.colunas-1);
@@ -126,7 +126,7 @@ public class Ambiente extends Frame {
 	        b.start();
     	}
     	
-    	int nrefugiados = 3;
+    	int nrefugiados = 8;
     	for (i = 1; i <= nrefugiados; i++) {
     		randl = Util.rand(0, this.linhas-1);
     		randc = Util.rand(0, this.colunas-1);
@@ -135,14 +135,14 @@ public class Ambiente extends Frame {
 	        r.start();
     	}
 
-//    	int nfogo = 3;
-//    	for (i = 1; i <= nfogo; i++) {
-//    		randl = Util.rand(0, this.linhas-1);
-//    		randc = Util.rand(0, this.colunas-1);
-//    		
-//    		Fogo r = new Fogo(i, randl, randc);
-//	        r.start();
-//    	}
+    	int nfogo = 3;
+    	for (i = 1; i <= nfogo; i++) {
+    		randl = Util.rand(0, this.linhas-1);
+    		randc = Util.rand(0, this.colunas-1);
+    		
+    		Fogo r = new Fogo(i, randl, randc);
+	        r.start();
+    	}
 
     }
     
