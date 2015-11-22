@@ -3,9 +3,9 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		Ambiente amb = new Ambiente(null);  
+		Ambiente amb = Ambiente.getInstance();
+		amb.init();
 		amb.setVisible(true);
-		
+
 	}
-	
 }
