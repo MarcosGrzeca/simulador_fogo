@@ -6,26 +6,29 @@ public class Fogo extends Elemento {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void apaga() {
-		Ambiente amb = Ambiente.getInstance();
-		
-		int randl = Util.rand(0, amb.getLinhas()-1);
-		int randc = Util.rand(0, amb.getColunas()-1);
-
-		this.move(randl, randc);
+	public void apagar() {
+		while (true) {
+			int randl = Util.rand(0, this.amb.getLinhas()-1);
+			int randc = Util.rand(0, this.amb.getColunas()-1);
+			
+			Elemento elemento_atual = this.amb.getElemento(randl, randc);
+			if (elemento_atual instanceof Vazio) {
+				this.move(randl, randc);
+				break;
+			}
+		}
 	}
 	
 	public void run(){
-		Ambiente amb = Ambiente.getInstance();
-		amb.setElemento(this);
+		this.amb.setElemento(this);
 		
 		while(true) {
 			try{
-			    this.sleep(10000);
+			    this.sleep(30000);
 			}catch(Exception e){}
 			
 			// teste temporario, depois bombeiro vai apagar
-			this.apaga();
+//			this.apaga();
 		}
 	}
 	

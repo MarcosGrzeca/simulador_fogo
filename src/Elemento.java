@@ -10,71 +10,101 @@ public class Elemento extends Thread {
 	protected int id;
 	protected int l; //linha
 	protected int c; //coluna
+	protected Ambiente amb;
 	public JButton bt; //botao da interface
 
 	public Elemento(int id, int l, int c) {
 		this.id = id;
 		this.l = l;
 		this.c = c;
+		this.amb = Ambiente.getInstance();
 	}
 	
 	public ArrayList<Elemento> getPercepcao() {
-		
-		return null;
+		int l = this.l;
+		int c = this.c;
+		ArrayList<Elemento> list = new ArrayList<Elemento>();
+		//cima
+		if (this.amb.checkPosition(l-1, c) == 1) {
+			list.add(this.amb.getElemento(l-1, c));
+		}
+		//baixo
+		if (this.amb.checkPosition(l+1, c) == 1) {
+			list.add(this.amb.getElemento(l+1, c));
+		}
+		//esquerda
+		if (this.amb.checkPosition(l, c-1) == 1) {
+			list.add(this.amb.getElemento(l, c-1));
+		}
+		//direita
+		if (this.amb.checkPosition(l, c+1) == 1) {
+			list.add(this.amb.getElemento(l, c+1));
+		}
+		return list;
 	}
 	
 	public void move(int nova_linha, int nova_coluna) {
-		Ambiente amb = Ambiente.getInstance();
-		
-		amb.removeElemento(this.l, this.c);
+		this.amb.removeElemento(this.l, this.c);
 		
 		this.l = nova_linha;
 		this.c = nova_coluna;
 		
-		amb.setElemento(this);
+		this.amb.setElemento(this);
 	}
 
-	public void andar() {
-		Ambiente amb = Ambiente.getInstance();
-		
+	public void moveComSemaforo(int nl, int nc) {
+		Elemento elemento_atual = this.amb.getElemento(nl, nc);
+		//TESTAR SEMAFORO
+		if (elemento_atual instanceof Vazio) {
+			this.amb.getSemaforo(nl, nc).down();
+
+			this.move(nl, nc);
+
+			try{
+			    this.sleep(1000);
+			}catch(Exception e){}
+
+			this.amb.getSemaforo(this.l, this.c).up();
+		}
+	}
+	
+	public int[] getMovimentoRand() {
 		int valid = 0, nl, nc;
 		while (true) {
-			nl = Util.rand(-1, 1) + this.l;
-			nc = Util.rand(-1, 1) + this.c;
+			nl = Util.rand(-1, 1);
+			if (nl == 0) {
+				nc = Util.rand(-1, 1);
+			} else {
+				nc = 0;
+			}
+			if (nl == 0 && nc == 0) {
+				continue;
+			}
+			nl = nl + this.l;
+			nc = nc + this.c;
 //			if (nl == this.l && nc == this.c) {
 //				continue;
 //			}
-			
-			valid = amb.checkPosition(nl, nc);
+			valid = this.amb.checkPosition(nl, nc);
 			if (valid == 1) {
 				break;
 			}
 		}
-		amb.getSemaforo(nl, nc).down();
+		int[] arr = {nl, nc};
+		return arr;
+	}
+	
+	public void andar() {
+		int[] mv = getMovimentoRand();
+		int nl = mv[0];
+		int nc = mv[1];
 		
-//		amb.printMatriz();
-//		System.out.println("t "+this.id + " l="+nl+" c="+nc);
-//		amb.printSemaforos();
-		
-		if (amb.getElemento(nl, nc) instanceof Vazio) {
-			this.move(nl, nc);
-		}
-		try{
-		    this.sleep(1000);
-		}catch(Exception e){}
-		
-		amb.getSemaforo(this.l, this.c).up();
-		
+		this.moveComSemaforo(nl, nc);
 	}
 	
 	public void run(){
-//		try{
-//		    this.sleep(1000);
-//		}catch(Exception e){}
-		
 		while(true) {
 			this.andar();
-			
 		}
 	}
 	

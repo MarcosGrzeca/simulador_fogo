@@ -6,4 +6,15 @@ public class Vitima extends Elemento {
 		// TODO Auto-generated constructor stub
 	}
 
+	public void resgatar() {
+		
+	}
+
+	public void curar() {
+		
+	}
+	
+	public void morrer() {
+		
+	}
 }

@@ -35,6 +35,7 @@ public class Ambiente extends Frame {
 	public ImageIcon imgFundoPreta;
 	public ImageIcon imgBombeiro;
 	public ImageIcon imgRefugiado;
+	public ImageIcon imgVitima;
 	public ImageIcon imgFogo;
 	
 	public static Ambiente getInstance() {
@@ -69,6 +70,10 @@ public class Ambiente extends Frame {
         try {
         	img = ImageIO.read(getClass().getResourceAsStream("img/refugiado.jpg"));
         	imgRefugiado = new ImageIcon(img);
+        } catch (IOException e) {}
+        try {
+        	img = ImageIO.read(getClass().getResourceAsStream("img/vitima.jpg"));
+        	imgVitima = new ImageIcon(img);
         } catch (IOException e) {}
         try {
         	img = ImageIO.read(getClass().getResourceAsStream("img/fogo.jpg"));
@@ -134,8 +139,8 @@ public class Ambiente extends Frame {
     		Refugiado r = new Refugiado(i, randl, randc);
 	        r.start();
     	}
-
-    	int nfogo = 3;
+    	
+    	int nfogo = 10;
     	for (i = 1; i <= nfogo; i++) {
     		randl = Util.rand(0, this.linhas-1);
     		randc = Util.rand(0, this.colunas-1);
@@ -196,7 +201,7 @@ public class Ambiente extends Frame {
     public void printSemaforos() {
     	for (int i = 0; i < this.semaforos.size(); i++) {
     		for (int j = 0; j < this.semaforos.get(i).size(); j++) {
-    			System.out.print(this.getSemaforo(i, j).getTotal()+" - ");
+    			System.out.print(this.getSemaforo(i, j).getTotal());
     		}
     		System.out.println();
     	}
@@ -209,6 +214,8 @@ public class Ambiente extends Frame {
     		img = imgBombeiro;
 		} else if (e instanceof Refugiado) {
 			img = imgRefugiado;
+		} else if (e instanceof Vitima) {
+			img = imgVitima;
 		} else if (e instanceof Fogo) {
 			img = imgFogo;
     	} else {
