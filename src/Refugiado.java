@@ -39,6 +39,7 @@ public class Refugiado extends Elemento {
 		v.start();
 
 		this.stop();
+		//fazer thread terminar
 	}
 
 }

@@ -131,7 +131,7 @@ public class Ambiente extends Frame {
 	        b.start();
     	}
     	
-    	int nrefugiados = 8;
+    	int nrefugiados = 1;
     	for (i = 1; i <= nrefugiados; i++) {
     		randl = Util.rand(0, this.linhas-1);
     		randc = Util.rand(0, this.colunas-1);
@@ -149,6 +149,8 @@ public class Ambiente extends Frame {
 	        r.start();
     	}
 
+    	int nambulancias = 5;
+    	
     }
     
     public Elemento getElemento(int l, int c) {

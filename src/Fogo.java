@@ -26,9 +26,6 @@ public class Fogo extends Elemento {
 			try{
 			    this.sleep(30000);
 			}catch(Exception e){}
-			
-			// teste temporario, depois bombeiro vai apagar
-//			this.apaga();
 		}
 	}
 	

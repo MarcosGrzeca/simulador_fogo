@@ -65,6 +65,10 @@ public class Elemento extends Thread {
 			}catch(Exception e){}
 
 			this.amb.getSemaforo(this.l, this.c).up();
+		} else {
+			try{
+			    this.sleep(1000);
+			}catch(Exception e){}
 		}
 	}
 	
