@@ -57,19 +57,22 @@ public class Elemento extends Thread {
 		//TESTAR SEMAFORO
 		if (elemento_atual instanceof Vazio) {
 			this.amb.getSemaforo(nl, nc).down();
-
+			
+			int ll = this.l;
+			int lc = this.c;
 			this.move(nl, nc);
 
 			try{
 			    this.sleep(1000);
 			}catch(Exception e){}
 
-			this.amb.getSemaforo(this.l, this.c).up();
+			this.amb.getSemaforo(ll, lc).up();
 		} else {
 			try{
 			    this.sleep(1000);
 			}catch(Exception e){}
 		}
+//			this.amb.printSemaforos();
 	}
 	
 	public int[] getMovimentoRand() {

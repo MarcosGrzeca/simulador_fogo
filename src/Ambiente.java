@@ -131,7 +131,7 @@ public class Ambiente extends Frame {
 	        b.start();
     	}
     	
-    	int nrefugiados = 1;
+    	int nrefugiados = 5;
     	for (i = 1; i <= nrefugiados; i++) {
     		randl = Util.rand(0, this.linhas-1);
     		randc = Util.rand(0, this.colunas-1);
@@ -150,6 +150,10 @@ public class Ambiente extends Frame {
     	}
 
     	int nambulancias = 5;
+    	
+    	
+    	//formula ambulancia mais proxima
+    	// m = y2-y1/x2-x1
     	
     }
     
