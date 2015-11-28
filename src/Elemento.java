@@ -44,35 +44,35 @@ public class Elemento extends Thread {
 	}
 	
 	public void move(int nova_linha, int nova_coluna) {
+		this.amb.getSemaforo(nova_linha, nova_coluna).down();
+		
 		this.amb.removeElemento(this.l, this.c);
 		
+		int ll = this.l;
+		int lc = this.c;
 		this.l = nova_linha;
 		this.c = nova_coluna;
 		
 		this.amb.setElemento(this);
+
+		try{
+		    this.sleep(1000);
+		}catch(Exception e){}
+
+		this.amb.getSemaforo(ll, lc).up();
 	}
 
 	public void moveComSemaforo(int nl, int nc) {
 		Elemento elemento_atual = this.amb.getElemento(nl, nc);
 		//TESTAR SEMAFORO
 		if (elemento_atual instanceof Vazio) {
-			this.amb.getSemaforo(nl, nc).down();
-			
-			int ll = this.l;
-			int lc = this.c;
 			this.move(nl, nc);
 
-			try{
-			    this.sleep(1000);
-			}catch(Exception e){}
-
-			this.amb.getSemaforo(ll, lc).up();
 		} else {
 			try{
 			    this.sleep(1000);
 			}catch(Exception e){}
 		}
-//			this.amb.printSemaforos();
 	}
 	
 	public int[] getMovimentoRand() {

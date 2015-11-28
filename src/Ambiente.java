@@ -36,6 +36,7 @@ public class Ambiente extends Frame {
 	public ImageIcon imgBombeiro;
 	public ImageIcon imgRefugiado;
 	public ImageIcon imgVitima;
+	public ImageIcon imgAmbulancia;
 	public ImageIcon imgFogo;
 	
 	public static Ambiente getInstance() {
@@ -76,6 +77,10 @@ public class Ambiente extends Frame {
         	imgVitima = new ImageIcon(img);
         } catch (IOException e) {}
         try {
+        	img = ImageIO.read(getClass().getResourceAsStream("img/ambulancia.jpg"));
+        	imgAmbulancia = new ImageIcon(img);
+        } catch (IOException e) {}
+        try {
         	img = ImageIO.read(getClass().getResourceAsStream("img/fogo.jpg"));
         	imgFogo = new ImageIcon(img);
         } catch (IOException e) {}
@@ -94,7 +99,25 @@ public class Ambiente extends Frame {
         this.addWindowListener(listener);
 
     }
-    
+
+	public ImageIcon getBotaoElemento(Elemento e) {
+		ImageIcon img = null;
+		if (e instanceof Bombeiro) {
+    		img = imgBombeiro;
+		} else if (e instanceof Refugiado) {
+			img = imgRefugiado;
+		} else if (e instanceof Vitima) {
+			img = imgVitima;
+		} else if (e instanceof Ambulancia) {
+			img = imgAmbulancia;
+		} else if (e instanceof Fogo) {
+			img = imgFogo;
+    	} else {
+    		img = imgFundoBranca;
+    	}
+		return img;
+	}
+	
     public void init() {
     	Elemento e;
         this.m = new ArrayList<ArrayList>();
@@ -126,6 +149,8 @@ public class Ambiente extends Frame {
     	for (i = 1; i <= nbombeiros; i++) {
     		randl = Util.rand(0, this.linhas-1);
     		randc = Util.rand(0, this.colunas-1);
+//    		randl = 0;
+//    		randc = 0;
     		
 	        Bombeiro b = new Bombeiro(i, randl, randc);
 	        b.start();
@@ -135,12 +160,15 @@ public class Ambiente extends Frame {
     	for (i = 1; i <= nrefugiados; i++) {
     		randl = Util.rand(0, this.linhas-1);
     		randc = Util.rand(0, this.colunas-1);
+//    		randl = 0;
+//    		randc = 1;
     		
     		Refugiado r = new Refugiado(i, randl, randc);
+//    		r.transformaVitima();
 	        r.start();
     	}
     	
-    	int nfogo = 10;
+    	int nfogo = 5;
     	for (i = 1; i <= nfogo; i++) {
     		randl = Util.rand(0, this.linhas-1);
     		randc = Util.rand(0, this.colunas-1);
@@ -149,11 +177,14 @@ public class Ambiente extends Frame {
 	        r.start();
     	}
 
-    	int nambulancias = 5;
-    	
-    	
-    	//formula ambulancia mais proxima
-    	// m = y2-y1/x2-x1
+    	int nambulancias = 2;
+    	for (i = 1; i <= nambulancias; i++) {
+    		randl = Util.rand(0, this.linhas-1);
+    		randc = Util.rand(0, this.colunas-1);
+    		
+    		Ambulancia r = new Ambulancia(i, randl, randc);
+	        r.start();
+    	}
     	
     }
     
@@ -214,22 +245,18 @@ public class Ambiente extends Frame {
 		System.out.println();
     }
     
-	public ImageIcon getBotaoElemento(Elemento e) {
-		ImageIcon img = null;
-		if (e instanceof Bombeiro) {
-    		img = imgBombeiro;
-		} else if (e instanceof Refugiado) {
-			img = imgRefugiado;
-		} else if (e instanceof Vitima) {
-			img = imgVitima;
-		} else if (e instanceof Fogo) {
-			img = imgFogo;
-    	} else {
-    		img = imgFundoBranca;
+    public ArrayList<Ambulancia> getListAmbulancias() {
+    	ArrayList<Ambulancia> arr = new ArrayList<Ambulancia>();
+    	for (int i = 0; i < this.semaforos.size(); i++) {
+    		for (int j = 0; j < this.semaforos.get(i).size(); j++) {
+    			if (this.getElemento(i, j) instanceof Ambulancia) {
+        			arr.add((Ambulancia) this.getElemento(i, j));
+    			}
+    		}
     	}
-		return img;
-	}
-	
+    	return arr;
+    }
+    
 	public int getLinhas() {
 		return linhas;
 	}
