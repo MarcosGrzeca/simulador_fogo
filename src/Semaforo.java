@@ -9,7 +9,7 @@ public class Semaforo {
 	public synchronized void down(){ //P
 		//bloqueia threads
 		while(this.total == 0){
-			System.out.println("Dormiu");
+//			System.out.println("Dormiu");
 			try {
 				this.wait();
 			} catch(InterruptedException e) {}

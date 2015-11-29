@@ -102,7 +102,7 @@ public class Elemento extends Thread {
 	}
 	
 	public void andar() {
-		int[] mv = getMovimentoRand();
+		int[] mv = this.getMovimentoRand();
 		int nl = mv[0];
 		int nc = mv[1];
 		

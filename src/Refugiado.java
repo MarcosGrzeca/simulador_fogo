@@ -19,7 +19,7 @@ public class Refugiado extends Elemento {
 			}
 		}
 
-		int[] mv = getMovimentoRand();
+		int[] mv = this.getMovimentoRand();
 		int nl = mv[0];
 		int nc = mv[1];
 		this.moveComSemaforo(nl, nc);
@@ -28,7 +28,7 @@ public class Refugiado extends Elemento {
 	public void transformaVitima() {
 		this.amb.removeElemento(this.l, this.c);
 
-		Vitima v = new Vitima(0, this.l, this.c);
+		Vitima v = new Vitima(this.id, this.l, this.c);
 		this.amb.setElemento(v);
 
 		try{

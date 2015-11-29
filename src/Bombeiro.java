@@ -25,11 +25,9 @@ public class Bombeiro extends Elemento {
 					fogo.apagar();
 				} else if (e instanceof Vitima) {
 					Vitima vitima = (Vitima) e;
-					vitima.resgatar();
-					this.vitima = vitima;
+					this.resgatar(vitima);
 				}
 			}
-	
 			int[] mv = this.getMovimentoRand();
 			nl = mv[0];
 			nc = mv[1];
@@ -37,9 +35,7 @@ public class Bombeiro extends Elemento {
 			//resgata vitima
 			for (Elemento e : campos) {
 				if (e instanceof Ambulancia) {
-					this.vitima.curar();
-					this.vitima = null;
-					this.ambulancia = null;
+					this.resgatarFinal();
 					return;
 				}
 			}
@@ -85,6 +81,19 @@ public class Bombeiro extends Elemento {
 			}
 		}
 		return this.ambulancia;
+	}
+	
+	public void resgatar(Vitima vitima) {
+		this.bt.setIcon(this.amb.imgBombeiroResgate);
+		
+		vitima.resgatar();
+		this.vitima = vitima;
+	}
+	
+	public void resgatarFinal() {
+		this.vitima.curar(this.ambulancia.getLinha(), this.ambulancia.getColuna());
+		this.vitima = null;
+		this.ambulancia = null;
 	}
 	
 }

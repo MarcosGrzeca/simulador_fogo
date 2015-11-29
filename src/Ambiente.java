@@ -1,8 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Frame;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Panel;
 import java.awt.event.MouseEvent;
@@ -34,6 +32,7 @@ public class Ambiente extends Frame {
 	public ImageIcon imgFundoBranca;
 	public ImageIcon imgFundoPreta;
 	public ImageIcon imgBombeiro;
+	public ImageIcon imgBombeiroResgate;
 	public ImageIcon imgRefugiado;
 	public ImageIcon imgVitima;
 	public ImageIcon imgAmbulancia;
@@ -67,6 +66,10 @@ public class Ambiente extends Frame {
         try {
         	img = ImageIO.read(getClass().getResourceAsStream("img/bombeiro.png"));
             imgBombeiro = new ImageIcon(img);
+        } catch (IOException e) {}
+        try {
+        	img = ImageIO.read(getClass().getResourceAsStream("img/bombeiro_resgate.png"));
+        	imgBombeiroResgate = new ImageIcon(img);
         } catch (IOException e) {}
         try {
         	img = ImageIO.read(getClass().getResourceAsStream("img/refugiado.jpg"));
@@ -156,7 +159,7 @@ public class Ambiente extends Frame {
 	        b.start();
     	}
     	
-    	int nrefugiados = 5;
+    	int nrefugiados = 10;
     	for (i = 1; i <= nrefugiados; i++) {
     		randl = Util.rand(0, this.linhas-1);
     		randc = Util.rand(0, this.colunas-1);
