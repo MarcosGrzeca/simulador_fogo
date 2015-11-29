@@ -88,6 +88,7 @@ public class Ambiente extends Frame {
         	imgFogo = new ImageIcon(img);
         } catch (IOException e) {}
         
+        
         this.setLayout(new BorderLayout());
         this.add(BorderLayout.CENTER, this.painel);
         
@@ -156,8 +157,6 @@ public class Ambiente extends Frame {
     	for (i = 1; i <= nbombeiros; i++) {
     		randl = Util.rand(0, this.linhas-1);
     		randc = Util.rand(0, this.colunas-1);
-//    		randl = 0;
-//    		randc = 0;
     		
 	        Bombeiro b = new Bombeiro(i, randl, randc);
 	        b.start();
@@ -167,11 +166,8 @@ public class Ambiente extends Frame {
     	for (i = 1; i <= nrefugiados; i++) {
     		randl = Util.rand(0, this.linhas-1);
     		randc = Util.rand(0, this.colunas-1);
-//    		randl = 0;
-//    		randc = 1;
     		
     		Refugiado r = new Refugiado(i, randl, randc);
-//    		r.transformaVitima();
 	        r.start();
     	}
     	

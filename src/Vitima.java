@@ -50,7 +50,7 @@ public class Vitima extends Elemento {
 			this.amb.getSemaforo(this.l, this.c).up();
 		}
 		
-		System.out.println("Morreu "+this.id);
+//		System.out.println("Morreu "+this.id);
 		
 		this.stop();
 	}
