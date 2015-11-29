@@ -104,5 +104,10 @@ public class Bombeiro extends Elemento {
 		
 		this.bt.setIcon(this.amb.getBotaoElemento(this));
 	}
+
+	public void run(){
+		this.amb.countBombeiros(1);
+		super.run();
+	}
 	
 }

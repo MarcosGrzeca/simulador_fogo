@@ -7,10 +7,11 @@ public class Ambulancia extends Elemento {
 
 	public void run(){
 		this.amb.setElemento(this);
+		this.amb.countAmbulancias(1);
 		
 		while(true) {
 			try{
-			    this.sleep(30000);
+			    this.sleep(this.amb.unTempo*30);
 			}catch(Exception e){}
 		}
 	}

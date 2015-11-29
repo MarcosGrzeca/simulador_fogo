@@ -32,13 +32,20 @@ public class Refugiado extends Elemento {
 		this.amb.setElemento(v);
 
 		try{
-		    this.sleep(1000);
+		    this.sleep(this.amb.unTempo);
 		}catch(Exception e){}
 
 		v.start();
 
+		this.amb.countRefugiados(-1);
+		
 		this.stop();
 		//fazer thread terminar
+	}
+
+	public void run(){
+		this.amb.countRefugiados(1);
+		super.run();
 	}
 
 }

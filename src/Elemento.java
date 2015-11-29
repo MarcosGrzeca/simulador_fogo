@@ -56,7 +56,7 @@ public class Elemento extends Thread {
 		this.amb.setElemento(this);
 
 		try{
-		    this.sleep(1000);
+		    this.sleep(this.amb.unTempo);
 		}catch(Exception e){}
 
 		this.amb.getSemaforo(ll, lc).up();
@@ -70,7 +70,7 @@ public class Elemento extends Thread {
 
 		} else {
 			try{
-			    this.sleep(1000);
+			    this.sleep(this.amb.unTempo);
 			}catch(Exception e){}
 		}
 	}

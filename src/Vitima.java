@@ -34,11 +34,14 @@ public class Vitima extends Elemento {
 				this.amb.setElemento(r);
 				r.start();
 				
+				this.amb.countVitimasSalvas(1);
+				this.amb.countVitimas(-1);
+				
 				this.stop();
 				break;
 			} else {
 				try{
-				    this.sleep(1000);
+				    this.sleep(this.amb.unTempo);
 				}catch(Exception e){}
 			}
 		}
@@ -48,20 +51,23 @@ public class Vitima extends Elemento {
 		if (this.resgatado == 0) {
 			this.amb.removeElemento(this.l, this.c);
 			this.amb.getSemaforo(this.l, this.c).up();
+			
+			this.amb.countVitimasFatais(1);
 		}
 		
-//		System.out.println("Morreu "+this.id);
+		this.amb.countVitimas(-1);
 		
 		this.stop();
 	}
 
 	public void run(){
+		this.amb.countVitimas(1);
 		while(true) {
 			if (this.resgatado == 0) {
 				this.andar();
 			} else {
 				try{
-				    this.sleep(1000);
+				    this.sleep(this.amb.unTempo);
 				}catch(Exception e){}
 			}
 			
