@@ -106,7 +106,11 @@ public class Ambiente extends Frame {
 	public ImageIcon getBotaoElemento(Elemento e) {
 		ImageIcon img = null;
 		if (e instanceof Bombeiro) {
-    		img = imgBombeiro;
+			if (((Bombeiro) e).vitima == null) {
+				img = imgBombeiro;
+			} else {
+				img = imgBombeiroResgate;
+			}
 		} else if (e instanceof Refugiado) {
 			img = imgRefugiado;
 		} else if (e instanceof Vitima) {

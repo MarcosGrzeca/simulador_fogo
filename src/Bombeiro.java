@@ -1,8 +1,10 @@
 import java.util.ArrayList;
 
+import javax.swing.JButton;
+
 
 public class Bombeiro extends Elemento {
-	private Vitima vitima;
+	public Vitima vitima;
 	private Ambulancia ambulancia;
 
 	public Bombeiro(int id, int l, int c) {
@@ -35,9 +37,12 @@ public class Bombeiro extends Elemento {
 			//resgata vitima
 			for (Elemento e : campos) {
 				if (e instanceof Ambulancia) {
-					this.resgatarFinal();
+					this.resgatarFinal(1);
 					return;
 				}
+			}
+			if (this.vitima.tempo > this.vitima.tempoMaxMorte) {
+				this.resgatarFinal(0);
 			}
 			Ambulancia amb_proxima = this.getAmbulanciaMaisProxima();
 			nl = this.l;
@@ -84,16 +89,20 @@ public class Bombeiro extends Elemento {
 	}
 	
 	public void resgatar(Vitima vitima) {
-		this.bt.setIcon(this.amb.imgBombeiroResgate);
+		this.bt.setIcon(this.amb.getBotaoElemento(this));
 		
 		vitima.resgatar();
 		this.vitima = vitima;
 	}
 	
-	public void resgatarFinal() {
-		this.vitima.curar(this.ambulancia.getLinha(), this.ambulancia.getColuna());
+	public void resgatarFinal(int curar) {
+		if (curar == 1) {
+			this.vitima.curar(this.ambulancia.getLinha(), this.ambulancia.getColuna());
+		}
 		this.vitima = null;
 		this.ambulancia = null;
+		
+		this.bt.setIcon(this.amb.getBotaoElemento(this));
 	}
 	
 }
