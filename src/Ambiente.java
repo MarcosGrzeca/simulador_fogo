@@ -259,7 +259,6 @@ public class Ambiente extends Frame {
     public void init(int nroLinhas, int nroColunas, int nroRefugiados, int nroBombeiros, int nroFogos, int nroAmbulancias) {
     	this.linhas = nroLinhas;
     	this.colunas = nroColunas;
-    	System.out.println("Linhas: " + this.linhas + " - " + this.colunas);
     	Elemento e;
         this.m = new ArrayList<ArrayList>();
         this.semaforos = new ArrayList<ArrayList>();
