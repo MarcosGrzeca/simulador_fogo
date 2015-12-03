@@ -24,7 +24,7 @@ public class Fogo extends Elemento {
 		
 		while(true) {
 			try{
-			    this.sleep(this.amb.unTempo*30);
+			    Thread.sleep(this.amb.unTempo*30);
 			}catch(Exception e){}
 		}
 	}

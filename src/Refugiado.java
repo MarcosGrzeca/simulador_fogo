@@ -32,7 +32,7 @@ public class Refugiado extends Elemento {
 		this.amb.setElemento(v);
 
 		try{
-		    this.sleep(this.amb.unTempo);
+		    Thread.sleep(this.amb.unTempo);
 		}catch(Exception e){}
 
 		v.start();

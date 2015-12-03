@@ -18,6 +18,7 @@ public class Vitima extends Elemento {
 		this.amb.getSemaforo(this.l, this.c).up();
 	}
 
+	@SuppressWarnings("deprecation")
 	public void curar(int linha, int coluna) {
 		this.l = linha;
 		this.c = coluna;
@@ -41,7 +42,7 @@ public class Vitima extends Elemento {
 				break;
 			} else {
 				try{
-				    this.sleep(this.amb.unTempo);
+				    Thread.sleep(this.amb.unTempo);
 				}catch(Exception e){}
 			}
 		}
@@ -67,7 +68,7 @@ public class Vitima extends Elemento {
 				this.andar();
 			} else {
 				try{
-				    this.sleep(this.amb.unTempo);
+				    Thread.sleep(this.amb.unTempo);
 				}catch(Exception e){}
 			}
 			

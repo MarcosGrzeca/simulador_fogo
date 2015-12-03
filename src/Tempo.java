@@ -2,13 +2,12 @@ import java.util.Calendar;
 
 public class Tempo extends Thread {
 	private Calendar horaInicio;
-	private java.text.DateFormat dataInicio;
 	Ambiente amb;
 	
 	public Tempo(Ambiente amb) {
 		this.amb = amb;
         this.horaInicio = Calendar.getInstance();
-        this.dataInicio = new java.text.SimpleDateFormat("HH:mm:ss");
+        new java.text.SimpleDateFormat("HH:mm:ss");
 	}
 
 	public void atualizar() {
@@ -23,7 +22,7 @@ public class Tempo extends Thread {
 		while (true) {
 			try {
 				this.atualizar();
-				this.sleep(1);
+				Thread.sleep(1);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

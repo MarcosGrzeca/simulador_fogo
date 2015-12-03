@@ -1,8 +1,5 @@
 import java.util.ArrayList;
 
-import javax.swing.JButton;
-
-
 public class Bombeiro extends Elemento {
 	public Vitima vitima;
 	private Ambulancia ambulancia;
