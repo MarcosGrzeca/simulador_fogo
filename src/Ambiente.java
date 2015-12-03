@@ -280,7 +280,7 @@ public class Ambiente extends Frame {
         	}
         }
         
-        this.countVitimas(0);
+        this.countVitimas(nroRefugiados);
         this.countVitimasSalvas(0);
         this.countVitimasFatais(0);
         
@@ -423,7 +423,7 @@ public class Ambiente extends Frame {
 
 	public void countAmbulancias(int n) {
 		this.countAmbulancias += n;
-		this.labAmbulancias.setText("AmbulÃ¢ncias: "+this.countAmbulancias);
+		this.labAmbulancias.setText("Ambulâncias: "+this.countAmbulancias);
 	}
 
 	public void countRefugiados(int n) {
@@ -433,22 +433,22 @@ public class Ambiente extends Frame {
 
 	public void countFogo(int n) {
 		this.countFogo += n;
-		this.labFogo.setText("IncÃªncios: "+this.countFogo);
+		this.labFogo.setText("Incêndios: "+this.countFogo);
 	}
 
 	public void countVitimas(int n) {
 		this.countVitimas += n;
-		this.labVitimas.setText("VÃ­timas: "+this.countVitimas);
+		this.labVitimas.setText("Vítimas: "+this.countVitimas);
 	}
 
 	public void countVitimasSalvas(int n) {
 		this.countVitimasSalvas += n;
-		this.labVitimasSalvas.setText("VÃ­timas salvas: "+this.countVitimasSalvas);
+		this.labVitimasSalvas.setText("Vítimas salvas: "+this.countVitimasSalvas);
 	}
 
 	public void countVitimasFatais(int n) {
 		this.countVitimasFatais += n;
-		this.labVitimasFatais.setText("VÃ­timas fatais: "+this.countVitimasFatais);
+		this.labVitimasFatais.setText("Vítimas fatais: "+this.countVitimasFatais);
 	}
 
 	public class BotaoTab extends JButton implements MouseListener {  
