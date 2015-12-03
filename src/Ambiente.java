@@ -131,7 +131,7 @@ public class Ambiente extends Frame {
 		toolBar.setSize(100, 0);
 		this.add(BorderLayout.WEST, toolBar);
 		
-		JButton btnResetar = new JButton("Iniciar");
+		/*JButton btnResetar = new JButton("Iniciar");
 		btnResetar.setMargin(new Insets(2, 2, 2, 2));
 		btnResetar.setFont(new Font("Dialog", Font.BOLD, 10));
 		btnResetar.addActionListener(new ActionListener() {
@@ -141,7 +141,7 @@ public class Ambiente extends Frame {
 			}
 		});
 		toolBar.add(btnResetar);
-
+*/
 		JSeparator separator = new JSeparator();
 		separator.setMinimumSize(new Dimension(1, 1));
 		separator.setMaximumSize(new Dimension(32767, 2));
@@ -280,7 +280,7 @@ public class Ambiente extends Frame {
         	}
         }
         
-        this.countVitimas(nroRefugiados);
+        this.countVitimas(0);
         this.countVitimasSalvas(0);
         this.countVitimasFatais(0);
         
@@ -451,18 +451,14 @@ public class Ambiente extends Frame {
 		this.labVitimasFatais.setText("Vítimas fatais: "+this.countVitimasFatais);
 	}
 
-	public class BotaoTab extends JButton implements MouseListener {  
-	    
+	public class BotaoTab extends JButton implements MouseListener {
 	    //usa o construtor da classe super (JButton), e adiciona o mouselistener ao objeto  
 	    BotaoTab(ImageIcon img) //, int x, int y, int corFundo)  
 	    {  
 	        this.setIcon(img);
-	        
 	        this.setBackground(Color.WHITE);
-	        this.setBorder(new LineBorder(Color.WHITE, 0));
-	        
+	        this.setBorder(new LineBorder(Color.WHITE, 0));       
 	        this.setFocusPainted(false);
-	        
 	        addMouseListener(this);
 	    }
 	    
@@ -495,6 +491,5 @@ public class Ambiente extends Frame {
 			// TODO Auto-generated method stub
 			
 		}  
-	}
-	
+	}	
 }
