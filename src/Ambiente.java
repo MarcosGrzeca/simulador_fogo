@@ -17,7 +17,10 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -53,7 +56,9 @@ public class Ambiente extends Frame {
 	private JLabel labVitimasSalvas;
 	private int countVitimasFatais;
 	private JLabel labVitimasFatais;
-	
+	private JLabel labTempo;
+	private Calendar horaInicio;
+	private java.text.DateFormat dataInicio;
 	private Panel painel;
 	
 	public ImageIcon imgFundoBranca;
@@ -73,7 +78,7 @@ public class Ambiente extends Frame {
 	}
 	
     public Ambiente() {
-    	this.setTitle("SimulaÃ§Ã£o combate ao fogo e resgate de vÃ­timas");
+    	this.setTitle("Simulação combate ao fogo e resgate de vítimas");
         this.setSize((this.linhas*40)+100, this.colunas*40);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
@@ -146,7 +151,7 @@ public class Ambiente extends Frame {
 		separator.setPreferredSize(new Dimension(0, 1));
 		toolBar.add(separator);
 		
-		JLabel labTempo = new JLabel();
+		this.labTempo = new JLabel();
 		labTempo.setText("Tempo: ");
 		toolBar.add(labTempo);
 
@@ -229,7 +234,9 @@ public class Ambiente extends Frame {
             }
         };
         this.addWindowListener(listener);
-
+        
+        this.horaInicio = Calendar.getInstance();
+        this.dataInicio = new java.text.SimpleDateFormat("HH:mm:ss");  
     }
 
 	public ImageIcon getBotaoElemento(Elemento e) {
@@ -409,6 +416,14 @@ public class Ambiente extends Frame {
 		this.colunas = colunas;
 	}
 
+	public void atualizarTempo() {  
+        Calendar dataFinal = Calendar.getInstance();  
+        long diferenca = dataFinal.getTimeInMillis() - dataFinal.getTimeInMillis();  
+        long diferenca1 = dataFinal.getTimeInMillis() - this.horaInicio.getTimeInMillis();
+        String tempo = String.valueOf(((diferenca1 - diferenca) / 1000));
+        this.labTempo.setText("Tempo: " + tempo + " s");
+	}
+	
 	public void countBombeiros(int n) {
 		this.countBombeiros += n;
 		this.labBombeiros.setText("Bombeiros: "+this.countBombeiros);
