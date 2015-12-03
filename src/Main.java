@@ -2,21 +2,21 @@ import javax.swing.JFrame;
 
 public class Main {
 
-	public static TelaInicial frameTelaInicial;
+	public static TelaConfiguracao frameTelaConfiguracao;
 	
-	public static void iniciarSimulacao() {
+	public static void iniciarSimulacao(int nroLinhas, int nroColunas, int nroRefugiados, int nroBombeiros, int nroFogos, int nroAmbulancias) {
 		Ambiente amb = Ambiente.getInstance();
-		amb.init();
+		amb.init(nroLinhas, nroColunas, nroRefugiados, nroBombeiros, nroFogos, nroAmbulancias);
 		amb.setVisible(true);
-		frameTelaInicial.dispose();
+		frameTelaConfiguracao.dispose();
     }
     
 	public static void main(String[] args) {
         //Iniciar tela para informar parametros
-        frameTelaInicial = new TelaInicial();
-        frameTelaInicial.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);      
-        frameTelaInicial.setLocationByPlatform(true);
-        frameTelaInicial.setVisible(true);
-        frameTelaInicial.setTitle("Simulação Resgate");
+        frameTelaConfiguracao = new TelaConfiguracao();
+        frameTelaConfiguracao.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);      
+        frameTelaConfiguracao.setLocationByPlatform(true);
+        frameTelaConfiguracao.setVisible(true);
+        frameTelaConfiguracao.setTitle("Simulação Resgate");
 	}
 }

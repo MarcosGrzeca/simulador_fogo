@@ -256,7 +256,10 @@ public class Ambiente extends Frame {
 		return img;
 	}
 	
-    public void init() {
+    public void init(int nroLinhas, int nroColunas, int nroRefugiados, int nroBombeiros, int nroFogos, int nroAmbulancias) {
+    	this.linhas = nroLinhas;
+    	this.colunas = nroColunas;
+    	System.out.println("Linhas: " + this.linhas + " - " + this.colunas);
     	Elemento e;
         this.m = new ArrayList<ArrayList>();
         this.semaforos = new ArrayList<ArrayList>();
@@ -282,14 +285,13 @@ public class Ambiente extends Frame {
         this.countVitimasSalvas(0);
         this.countVitimasFatais(0);
         
-        this.criaElementos();
+        this.criaElementos(nroLinhas, nroColunas, nroRefugiados, nroBombeiros, nroFogos, nroAmbulancias);
     }
 
-    public void criaElementos() {
+    public void criaElementos(int nroLinhas, int nroColunas, int nroRefugiados, int nroBombeiros, int nroFogos, int nroAmbulancias) {
     	//colocar na interface para escolher as quantidades
     	int i, randl, randc;
-    	int nbombeiros = 5;
-    	for (i = 1; i <= nbombeiros; i++) {
+    	for (i = 1; i <= nroBombeiros; i++) {
     		randl = Util.rand(0, this.linhas-1);
     		randc = Util.rand(0, this.colunas-1);
     		
@@ -297,8 +299,7 @@ public class Ambiente extends Frame {
 	        b.start();
     	}
     	
-    	int nrefugiados = 10;
-    	for (i = 1; i <= nrefugiados; i++) {
+    	for (i = 1; i <= nroRefugiados; i++) {
     		randl = Util.rand(0, this.linhas-1);
     		randc = Util.rand(0, this.colunas-1);
     		
@@ -306,8 +307,7 @@ public class Ambiente extends Frame {
 	        r.start();
     	}
     	
-    	int nfogo = 5;
-    	for (i = 1; i <= nfogo; i++) {
+    	for (i = 1; i <= nroFogos; i++) {
     		randl = Util.rand(0, this.linhas-1);
     		randc = Util.rand(0, this.colunas-1);
     		
@@ -315,8 +315,7 @@ public class Ambiente extends Frame {
 	        r.start();
     	}
 
-    	int nambulancias = 2;
-    	for (i = 1; i <= nambulancias; i++) {
+    	for (i = 1; i <= nroAmbulancias; i++) {
     		randl = Util.rand(0, this.linhas-1);
     		randc = Util.rand(0, this.colunas-1);
     		
