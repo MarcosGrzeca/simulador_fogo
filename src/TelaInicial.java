@@ -34,11 +34,11 @@ public class TelaInicial extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        nroAvioes = new javax.swing.JSpinner();
-        jLabel3 = new javax.swing.JLabel();
-        nroAvioesPorPista = new javax.swing.JSpinner();
+        jLabelTitulo = new javax.swing.JLabel();
+        jLabelLinhas = new javax.swing.JLabel();
+        nroLinhas = new javax.swing.JSpinner();
+        jLabelColunas = new javax.swing.JLabel();
+        nroColunas = new javax.swing.JSpinner();
         botaoIniciar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
 
@@ -53,16 +53,16 @@ public class TelaInicial extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setText("Simulação combate ao fogo e resgate de vítimas");
+        jLabelTitulo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabelTitulo.setText("Simulação combate ao fogo e resgate de vítimas");
 
-        jLabel2.setText("Número total de linhas");
+        jLabelLinhas.setText("Número total de linhas");
 
-        nroAvioes.setModel(new javax.swing.SpinnerNumberModel(15, 10, 20, 1));
+        nroLinhas.setModel(new javax.swing.SpinnerNumberModel(15, 10, 20, 1));
 
-        jLabel3.setText("Número total de colunas");
+        jLabelColunas.setText("Número total de colunas");
 
-        nroAvioesPorPista.setModel(new javax.swing.SpinnerNumberModel(15, 10, 20, 1));
+        nroColunas.setModel(new javax.swing.SpinnerNumberModel(15, 10, 20, 1));
 
         botaoIniciar.setText("Iniciar");
         botaoIniciar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -89,28 +89,28 @@ public class TelaInicial extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(nroAvioes, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelTitulo)
+                    .addComponent(jLabelLinhas)
+                    .addComponent(jLabelColunas)
+                    .addComponent(nroLinhas, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(botaoIniciar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
-                        .addComponent(nroAvioesPorPista, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addComponent(nroColunas, javax.swing.GroupLayout.Alignment.LEADING))
                     .addComponent(jLabel4))
                 .addGap(0, 479, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel1)
+                .addComponent(jLabelTitulo)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2)
+                .addComponent(jLabelLinhas)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(nroAvioes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(nroLinhas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
+                .addComponent(jLabelColunas)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(nroAvioesPorPista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(nroColunas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(botaoIniciar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 194, Short.MAX_VALUE)
@@ -150,8 +150,8 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void botaoIniciarMouseClicked(java.awt.event.MouseEvent evt) {                                          
         // TODO add your handling code here:
-        int varNroAvioes = (int) nroAvioes.getValue();
-        int varNroAvioesPista = (int) nroAvioesPorPista.getValue();
+        int varNroAvioes = (int) nroLinhas.getValue();
+        int varNroAvioesPista = (int) nroColunas.getValue();
         if (varNroAvioes > (varNroAvioesPista * 7) ) {
             TelaInicial tela = null;
             JOptionPane.showMessageDialog(tela, "O número total de aviões deve ser menor ou igual ao número máximo de aviões por pista * 7.");
@@ -248,16 +248,16 @@ public class TelaInicial extends javax.swing.JFrame {
 
     // Variables declaration - do not modify                     
     private javax.swing.JButton botaoIniciar;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabelTitulo;
+    private javax.swing.JLabel jLabelLinhas;
+    private javax.swing.JLabel jLabelColunas;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel2;
-    public javax.swing.JSpinner nroAvioes;
-    public javax.swing.JSpinner nroAvioesPorPista;
+    public javax.swing.JSpinner nroLinhas;
+    public javax.swing.JSpinner nroColunas;
     // End of variables declaration                   
 }

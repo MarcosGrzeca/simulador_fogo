@@ -57,8 +57,6 @@ public class Ambiente extends Frame {
 	private int countVitimasFatais;
 	private JLabel labVitimasFatais;
 	private JLabel labTempo;
-	private Calendar horaInicio;
-	private java.text.DateFormat dataInicio;
 	private Panel painel;
 	
 	public ImageIcon imgFundoBranca;
@@ -233,10 +231,7 @@ public class Ambiente extends Frame {
                 }
             }
         };
-        this.addWindowListener(listener);
-        
-        this.horaInicio = Calendar.getInstance();
-        this.dataInicio = new java.text.SimpleDateFormat("HH:mm:ss");  
+        this.addWindowListener(listener);  
     }
 
 	public ImageIcon getBotaoElemento(Elemento e) {
@@ -329,6 +324,9 @@ public class Ambiente extends Frame {
 	        r.start();
     	}
     	
+    	Tempo t = new Tempo(this);
+    	t.start();
+    	
     }
     
     public Elemento getElemento(int l, int c) {
@@ -416,11 +414,7 @@ public class Ambiente extends Frame {
 		this.colunas = colunas;
 	}
 
-	public void atualizarTempo() {  
-        Calendar dataFinal = Calendar.getInstance();  
-        long diferenca = dataFinal.getTimeInMillis() - dataFinal.getTimeInMillis();  
-        long diferenca1 = dataFinal.getTimeInMillis() - this.horaInicio.getTimeInMillis();
-        String tempo = String.valueOf(((diferenca1 - diferenca) / 1000));
+	public void atualizarTempo(String tempo) {  
         this.labTempo.setText("Tempo: " + tempo + " s");
 	}
 	
