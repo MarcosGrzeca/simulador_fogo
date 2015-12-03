@@ -1,10 +1,15 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.ComponentOrientation;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Frame;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.Panel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
@@ -17,6 +22,10 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JSeparator;
+import javax.swing.JToolBar;
+import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 public class Ambiente extends Frame {
@@ -25,17 +34,35 @@ public class Ambiente extends Frame {
 
     private int linhas = 15;
 	private int colunas = 15;
+	public int unTempo = 1000;
 
 	private ArrayList<ArrayList> m;
 	private ArrayList<ArrayList> semaforos;
+
+	private int countBombeiros;
+	private JLabel labBombeiros;
+	private int countAmbulancias;
+	private JLabel labAmbulancias;
+	private int countRefugiados;
+	private JLabel labRefugiados;
+	private int countFogo;
+	private JLabel labFogo;
+	private int countVitimas;
+	private JLabel labVitimas;
+	private int countVitimasSalvas;
+	private JLabel labVitimasSalvas;
+	private int countVitimasFatais;
+	private JLabel labVitimasFatais;
 	
 	private Panel painel;
 	
 	public ImageIcon imgFundoBranca;
 	public ImageIcon imgFundoPreta;
 	public ImageIcon imgBombeiro;
+	public ImageIcon imgBombeiroResgate;
 	public ImageIcon imgRefugiado;
 	public ImageIcon imgVitima;
+	public ImageIcon imgAmbulancia;
 	public ImageIcon imgFogo;
 	
 	public static Ambiente getInstance() {
@@ -47,7 +74,7 @@ public class Ambiente extends Frame {
 	
     public Ambiente() {
     	this.setTitle("Simulação combate ao fogo e resgate de vítimas");
-        this.setSize(this.linhas*40, this.colunas*40);
+        this.setSize((this.linhas*40)+100, this.colunas*40);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
 
@@ -68,6 +95,10 @@ public class Ambiente extends Frame {
             imgBombeiro = new ImageIcon(img);
         } catch (IOException e) {}
         try {
+        	img = ImageIO.read(getClass().getResourceAsStream("img/bombeiro_resgate.png"));
+        	imgBombeiroResgate = new ImageIcon(img);
+        } catch (IOException e) {}
+        try {
         	img = ImageIO.read(getClass().getResourceAsStream("img/refugiado.jpg"));
         	imgRefugiado = new ImageIcon(img);
         } catch (IOException e) {}
@@ -76,13 +107,119 @@ public class Ambiente extends Frame {
         	imgVitima = new ImageIcon(img);
         } catch (IOException e) {}
         try {
+        	img = ImageIO.read(getClass().getResourceAsStream("img/ambulancia.jpg"));
+        	imgAmbulancia = new ImageIcon(img);
+        } catch (IOException e) {}
+        try {
         	img = ImageIO.read(getClass().getResourceAsStream("img/fogo.jpg"));
         	imgFogo = new ImageIcon(img);
         } catch (IOException e) {}
         
+        
         this.setLayout(new BorderLayout());
         this.add(BorderLayout.CENTER, this.painel);
         
+		JToolBar toolBar = new JToolBar();
+		toolBar.setFont(new Font("Dialog", Font.BOLD, 10));
+		toolBar.setRollover(true);
+		toolBar.setInheritsPopupMenu(true);
+		toolBar.setAlignmentX(Component.LEFT_ALIGNMENT);
+		toolBar.setOrientation(SwingConstants.VERTICAL);
+		toolBar.setSize(100, 0);
+		this.add(BorderLayout.WEST, toolBar);
+		
+		JButton btnResetar = new JButton("Iniciar");
+		btnResetar.setMargin(new Insets(2, 2, 2, 2));
+		btnResetar.setFont(new Font("Dialog", Font.BOLD, 10));
+		btnResetar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				
+			}
+		});
+		toolBar.add(btnResetar);
+
+		JSeparator separator = new JSeparator();
+		separator.setMinimumSize(new Dimension(1, 1));
+		separator.setMaximumSize(new Dimension(32767, 2));
+		separator.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		separator.setPreferredSize(new Dimension(0, 1));
+		toolBar.add(separator);
+		
+		JLabel labTempo = new JLabel();
+		labTempo.setText("Tempo: ");
+		toolBar.add(labTempo);
+
+		separator = new JSeparator();
+		separator.setMinimumSize(new Dimension(1, 1));
+		separator.setMaximumSize(new Dimension(32767, 2));
+		separator.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		separator.setPreferredSize(new Dimension(0, 1));
+		toolBar.add(separator);
+		
+		this.labBombeiros = new JLabel();
+		toolBar.add(this.labBombeiros);
+
+		separator = new JSeparator();
+		separator.setMinimumSize(new Dimension(1, 1));
+		separator.setMaximumSize(new Dimension(32767, 2));
+		separator.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		separator.setPreferredSize(new Dimension(0, 1));
+		toolBar.add(separator);
+		
+		this.labAmbulancias = new JLabel();
+		toolBar.add(this.labAmbulancias);
+
+		separator = new JSeparator();
+		separator.setMinimumSize(new Dimension(1, 1));
+		separator.setMaximumSize(new Dimension(32767, 2));
+		separator.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		separator.setPreferredSize(new Dimension(0, 1));
+		toolBar.add(separator);
+		
+		this.labRefugiados = new JLabel();
+		toolBar.add(this.labRefugiados);
+
+		separator = new JSeparator();
+		separator.setMinimumSize(new Dimension(1, 1));
+		separator.setMaximumSize(new Dimension(32767, 2));
+		separator.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		separator.setPreferredSize(new Dimension(0, 1));
+		toolBar.add(separator);
+		
+		this.labFogo = new JLabel();
+		toolBar.add(this.labFogo);
+
+		separator = new JSeparator();
+		separator.setMinimumSize(new Dimension(1, 1));
+		separator.setMaximumSize(new Dimension(32767, 2));
+		separator.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		separator.setPreferredSize(new Dimension(0, 1));
+		toolBar.add(separator);
+
+		this.labVitimas = new JLabel();
+		toolBar.add(this.labVitimas);
+
+		separator = new JSeparator();
+		separator.setMinimumSize(new Dimension(1, 1));
+		separator.setMaximumSize(new Dimension(32767, 2));
+		separator.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		separator.setPreferredSize(new Dimension(0, 1));
+		toolBar.add(separator);
+
+		this.labVitimasSalvas = new JLabel();
+		toolBar.add(this.labVitimasSalvas);
+
+		separator = new JSeparator();
+		separator.setMinimumSize(new Dimension(1, 1));
+		separator.setMaximumSize(new Dimension(32767, 2));
+		separator.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		separator.setPreferredSize(new Dimension(0, 1));
+		toolBar.add(separator);
+
+		this.labVitimasFatais = new JLabel();
+		toolBar.add(this.labVitimasFatais);
+
         WindowListener listener = new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 Object origem = e.getSource();
@@ -94,7 +231,29 @@ public class Ambiente extends Frame {
         this.addWindowListener(listener);
 
     }
-    
+
+	public ImageIcon getBotaoElemento(Elemento e) {
+		ImageIcon img = null;
+		if (e instanceof Bombeiro) {
+			if (((Bombeiro) e).vitima == null) {
+				img = imgBombeiro;
+			} else {
+				img = imgBombeiroResgate;
+			}
+		} else if (e instanceof Refugiado) {
+			img = imgRefugiado;
+		} else if (e instanceof Vitima) {
+			img = imgVitima;
+		} else if (e instanceof Ambulancia) {
+			img = imgAmbulancia;
+		} else if (e instanceof Fogo) {
+			img = imgFogo;
+    	} else {
+    		img = imgFundoBranca;
+    	}
+		return img;
+	}
+	
     public void init() {
     	Elemento e;
         this.m = new ArrayList<ArrayList>();
@@ -117,10 +276,15 @@ public class Ambiente extends Frame {
         	}
         }
         
+        this.countVitimas(0);
+        this.countVitimasSalvas(0);
+        this.countVitimasFatais(0);
+        
         this.criaElementos();
     }
 
     public void criaElementos() {
+    	//colocar na interface para escolher as quantidades
     	int i, randl, randc;
     	int nbombeiros = 5;
     	for (i = 1; i <= nbombeiros; i++) {
@@ -131,7 +295,7 @@ public class Ambiente extends Frame {
 	        b.start();
     	}
     	
-    	int nrefugiados = 1;
+    	int nrefugiados = 10;
     	for (i = 1; i <= nrefugiados; i++) {
     		randl = Util.rand(0, this.linhas-1);
     		randc = Util.rand(0, this.colunas-1);
@@ -140,7 +304,7 @@ public class Ambiente extends Frame {
 	        r.start();
     	}
     	
-    	int nfogo = 10;
+    	int nfogo = 5;
     	for (i = 1; i <= nfogo; i++) {
     		randl = Util.rand(0, this.linhas-1);
     		randc = Util.rand(0, this.colunas-1);
@@ -149,7 +313,14 @@ public class Ambiente extends Frame {
 	        r.start();
     	}
 
-    	int nambulancias = 5;
+    	int nambulancias = 2;
+    	for (i = 1; i <= nambulancias; i++) {
+    		randl = Util.rand(0, this.linhas-1);
+    		randc = Util.rand(0, this.colunas-1);
+    		
+    		Ambulancia r = new Ambulancia(i, randl, randc);
+	        r.start();
+    	}
     	
     }
     
@@ -210,22 +381,18 @@ public class Ambiente extends Frame {
 		System.out.println();
     }
     
-	public ImageIcon getBotaoElemento(Elemento e) {
-		ImageIcon img = null;
-		if (e instanceof Bombeiro) {
-    		img = imgBombeiro;
-		} else if (e instanceof Refugiado) {
-			img = imgRefugiado;
-		} else if (e instanceof Vitima) {
-			img = imgVitima;
-		} else if (e instanceof Fogo) {
-			img = imgFogo;
-    	} else {
-    		img = imgFundoBranca;
+    public ArrayList<Ambulancia> getListAmbulancias() {
+    	ArrayList<Ambulancia> arr = new ArrayList<Ambulancia>();
+    	for (int i = 0; i < this.semaforos.size(); i++) {
+    		for (int j = 0; j < this.semaforos.get(i).size(); j++) {
+    			if (this.getElemento(i, j) instanceof Ambulancia) {
+        			arr.add((Ambulancia) this.getElemento(i, j));
+    			}
+    		}
     	}
-		return img;
-	}
-	
+    	return arr;
+    }
+    
 	public int getLinhas() {
 		return linhas;
 	}
@@ -240,6 +407,41 @@ public class Ambiente extends Frame {
 
 	public void setColunas(int colunas) {
 		this.colunas = colunas;
+	}
+
+	public void countBombeiros(int n) {
+		this.countBombeiros += n;
+		this.labBombeiros.setText("Bombeiros: "+this.countBombeiros);
+	}
+
+	public void countAmbulancias(int n) {
+		this.countAmbulancias += n;
+		this.labAmbulancias.setText("Ambulâncias: "+this.countAmbulancias);
+	}
+
+	public void countRefugiados(int n) {
+		this.countRefugiados += n;
+		this.labRefugiados.setText("Refugiados: "+this.countRefugiados);
+	}
+
+	public void countFogo(int n) {
+		this.countFogo += n;
+		this.labFogo.setText("Incêncios: "+this.countFogo);
+	}
+
+	public void countVitimas(int n) {
+		this.countVitimas += n;
+		this.labVitimas.setText("Vítimas: "+this.countVitimas);
+	}
+
+	public void countVitimasSalvas(int n) {
+		this.countVitimasSalvas += n;
+		this.labVitimasSalvas.setText("Vítimas salvas: "+this.countVitimasSalvas);
+	}
+
+	public void countVitimasFatais(int n) {
+		this.countVitimasFatais += n;
+		this.labVitimasFatais.setText("Vítimas fatais: "+this.countVitimasFatais);
 	}
 
 	public class BotaoTab extends JButton implements MouseListener {  

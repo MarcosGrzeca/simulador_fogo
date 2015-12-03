@@ -3,7 +3,6 @@ public class Fogo extends Elemento {
 
 	public Fogo(int id, int l, int c) {
 		super(id, l, c);
-		// TODO Auto-generated constructor stub
 	}
 	
 	public void apagar() {
@@ -21,10 +20,11 @@ public class Fogo extends Elemento {
 	
 	public void run(){
 		this.amb.setElemento(this);
+		this.amb.countFogo(1);
 		
 		while(true) {
 			try{
-			    this.sleep(30000);
+			    this.sleep(this.amb.unTempo*30);
 			}catch(Exception e){}
 		}
 	}
