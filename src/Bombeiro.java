@@ -34,6 +34,7 @@ public class Bombeiro extends Elemento {
 			//resgata vitima
 			for (Elemento e : campos) {
 				if (e instanceof Ambulancia) {
+					this.ambulancia = (Ambulancia) e;
 					this.resgatarFinal(1);
 					return;
 				}
