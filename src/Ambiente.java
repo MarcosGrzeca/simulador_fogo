@@ -283,35 +283,57 @@ public class Ambiente extends Frame {
     	//colocar na interface para escolher as quantidades
     	int i, randl, randc;
     	for (i = 1; i <= nroBombeiros; i++) {
-    		randl = Util.rand(0, this.linhas-1);
-    		randc = Util.rand(0, this.colunas-1);
-    		
-	        Bombeiro b = new Bombeiro(i, randl, randc);
-	        b.start();
+    		while (true) {
+    	    	randl = Util.rand(0, this.linhas-1);
+	    		randc = Util.rand(0, this.colunas-1);
+	    		if (this.getElemento(randl, randl) instanceof Vazio) {      	
+			        Bombeiro b = new Bombeiro(i, randl, randc);
+			        b.start();
+			        this.getSemaforo(randl, randc).down();
+			        break;
+				}
+    		}
     	}
     	
     	for (i = 1; i <= nroRefugiados; i++) {
-    		randl = Util.rand(0, this.linhas-1);
-    		randc = Util.rand(0, this.colunas-1);
+    		while (true) {
+	    		randl = Util.rand(0, this.linhas-1);
+	    		randc = Util.rand(0, this.colunas-1);
     		
-    		Refugiado r = new Refugiado(i, randl, randc);
-	        r.start();
+	    		if (this.getElemento(randl, randl) instanceof Vazio) {      
+					Refugiado r = new Refugiado(i, randl, randc);
+			        r.start();
+			        this.getSemaforo(randl, randc).down();
+			        break;
+	    		}
+    		}
     	}
     	
     	for (i = 1; i <= nroFogos; i++) {
-    		randl = Util.rand(0, this.linhas-1);
-    		randc = Util.rand(0, this.colunas-1);
-    		
-    		Fogo r = new Fogo(i, randl, randc);
-	        r.start();
+    		while (true) {
+    	    	randl = Util.rand(0, this.linhas-1);
+	    		randc = Util.rand(0, this.colunas-1);
+	    		if (this.getElemento(randl, randl) instanceof Vazio) {   
+		    		Fogo r = new Fogo(i, randl, randc);
+			        r.start();
+			        this.getSemaforo(randl, randc).down();
+			        break;
+	    		}
+    		}
     	}
 
     	for (i = 1; i <= nroAmbulancias; i++) {
-    		randl = Util.rand(0, this.linhas-1);
-    		randc = Util.rand(0, this.colunas-1);
-    		
-    		Ambulancia r = new Ambulancia(i, randl, randc);
-	        r.start();
+    		while (true) {
+	    		randl = Util.rand(0, this.linhas-1);
+	    		randc = Util.rand(0, this.colunas-1);
+	    		
+	    		if (this.getElemento(randl, randl) instanceof Vazio) {
+		    		Ambulancia r = new Ambulancia(i, randl, randc);
+			        r.start();
+			        this.getSemaforo(randl, randc).down();
+			        break;
+	    		}
+    		}
     	}
     	
     	Tempo t = new Tempo(this);

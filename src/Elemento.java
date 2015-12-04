@@ -67,7 +67,6 @@ public class Elemento extends Thread {
 		//TESTAR SEMAFORO
 		if (elemento_atual instanceof Vazio) {
 			this.move(nl, nc);
-
 		} else {
 			try{
 			    Thread.sleep(this.amb.unTempo);

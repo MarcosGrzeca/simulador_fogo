@@ -45,26 +45,31 @@ public class Bombeiro extends Elemento {
 			Ambulancia amb_proxima = this.getAmbulanciaMaisProxima();
 			nl = this.l;
 			nc = this.c;
-			int f = Util.rand(0, 1);
-			if (f == 0) {
-				if (amb_proxima.getLinha() < this.l) {
-					nl = this.l - 1;
-				} else if (amb_proxima.getLinha() > this.l) {
-					nl = this.l + 1;
-				} else if (amb_proxima.getColuna() < this.c) {
-					nc = this.c - 1;
-				} else if (amb_proxima.getColuna() > this.c) {
-					nc = this.c + 1;
-				}
+			if (amb_proxima == null) {
+				System.out.println("Nao achei ambulancia");
+				
 			} else {
-				if (amb_proxima.getColuna() < this.c) {
-					nc = this.c - 1;
-				} else if (amb_proxima.getColuna() > this.c) {
-					nc = this.c + 1;
-				} else if (amb_proxima.getLinha() < this.l) {
-					nl = this.l - 1;
-				} else if (amb_proxima.getLinha() > this.l) {
-					nl = this.l + 1;
+				int f = Util.rand(0, 1);
+				if (f == 0) {
+					if (amb_proxima.getLinha() < this.l) {
+						nl = this.l - 1;
+					} else if (amb_proxima.getLinha() > this.l) {
+						nl = this.l + 1;
+					} else if (amb_proxima.getColuna() < this.c) {
+						nc = this.c - 1;
+					} else if (amb_proxima.getColuna() > this.c) {
+						nc = this.c + 1;
+					}
+				} else {
+					if (amb_proxima.getColuna() < this.c) {
+						nc = this.c - 1;
+					} else if (amb_proxima.getColuna() > this.c) {
+						nc = this.c + 1;
+					} else if (amb_proxima.getLinha() < this.l) {
+						nl = this.l - 1;
+					} else if (amb_proxima.getLinha() > this.l) {
+						nl = this.l + 1;
+					}
 				}
 			}
 		}
