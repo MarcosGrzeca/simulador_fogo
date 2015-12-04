@@ -37,7 +37,7 @@ public class Ambiente extends Frame {
 
     private int linhas = 15;
 	private int colunas = 15;
-	public int unTempo = 100;
+	public int unTempo = 1000;
 
 	private ArrayList<ArrayList> m;
 	private ArrayList<ArrayList> semaforos;
@@ -392,6 +392,14 @@ public class Ambiente extends Frame {
     	for (int i = 0; i < this.semaforos.size(); i++) {
     		for (int j = 0; j < this.semaforos.get(i).size(); j++) {
     			System.out.print(this.getSemaforo(i, j).getTotal());
+    			if (this.getSemaforo(i, j).getTotal() > 1) {
+    				System.out.println("DEADLOCO--------------------------");
+    				for (int ii = 0; ii < this.m.size(); ii++) {
+    		    		for (int jj = 0; jj < this.m.get(ii).size(); jj++) {
+    		    			this.getElemento(ii, jj).interrupt();
+    		    		}
+    		    	}
+    			}
     		}
     		System.out.println();
     	}
