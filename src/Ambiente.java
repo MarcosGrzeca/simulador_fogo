@@ -76,7 +76,7 @@ public class Ambiente extends Frame {
 	}
 	
     public Ambiente() {
-    	this.setTitle("Simulacao combate ao fogo e resgate de vitimas");
+    	this.setTitle("Simulação combate ao fogo e resgate de vítimas");
         this.setLocationRelativeTo(null);
         this.setResizable(false);
 
@@ -415,7 +415,7 @@ public class Ambiente extends Frame {
 
 	public void countAmbulancias(int n) {
 		this.countAmbulancias += n;
-		this.labAmbulancias.setText("Ambul�ncias: "+this.countAmbulancias);
+		this.labAmbulancias.setText("Ambulâncias: "+this.countAmbulancias);
 	}
 
 	public void countRefugiados(int n) {
@@ -425,22 +425,22 @@ public class Ambiente extends Frame {
 
 	public void countFogo(int n) {
 		this.countFogo += n;
-		this.labFogo.setText("Inc�ndios: "+this.countFogo);
+		this.labFogo.setText("Incêndios: "+this.countFogo);
 	}
 
 	public void countVitimas(int n) {
 		this.countVitimas += n;
-		this.labVitimas.setText("V�timas: "+this.countVitimas);
+		this.labVitimas.setText("Vítimas: "+this.countVitimas);
 	}
 
 	public void countVitimasSalvas(int n) {
 		this.countVitimasSalvas += n;
-		this.labVitimasSalvas.setText("V�timas salvas: "+this.countVitimasSalvas);
+		this.labVitimasSalvas.setText("Vítimas salvas: "+this.countVitimasSalvas);
 	}
 
 	public void countVitimasFatais(int n) {
 		this.countVitimasFatais += n;
-		this.labVitimasFatais.setText("V�timas fatais: "+this.countVitimasFatais);
+		this.labVitimasFatais.setText("Vítimas fatais: "+this.countVitimasFatais);
 	}
 
 	public class BotaoTab extends JButton implements MouseListener {
