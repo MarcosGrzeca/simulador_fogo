@@ -76,12 +76,10 @@ public class Ambiente extends Frame {
 	}
 	
     public Ambiente() {
-    	this.setTitle("Simulação combate ao fogo e resgate de vítimas");
-        this.setSize((this.linhas*40)+100, this.colunas*40);
+    	this.setTitle("Simulacao combate ao fogo e resgate de vitimas");
         this.setLocationRelativeTo(null);
         this.setResizable(false);
 
-        this.painel = new Panel(new GridLayout(linhas, colunas));
 //        this.painel.setPreferredSize(new Dimension(600, 600));
 
         BufferedImage img;
@@ -118,7 +116,75 @@ public class Ambiente extends Frame {
         	imgFogo = new ImageIcon(img);
         } catch (IOException e) {}
         
+        WindowListener listener = new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Object origem = e.getSource();
+                if (origem == Ambiente.this) {
+                    System.exit(0);
+                }
+            }
+        };
+        this.addWindowListener(listener);  
+    }
+
+	public ImageIcon getBotaoElemento(Elemento e) {
+		ImageIcon img = null;
+		if (e instanceof Bombeiro) {
+			if (((Bombeiro) e).vitima == null) {
+				img = imgBombeiro;
+			} else {
+				img = imgBombeiroResgate;
+			}
+		} else if (e instanceof Refugiado) {
+			img = imgRefugiado;
+		} else if (e instanceof Vitima) {
+			img = imgVitima;
+		} else if (e instanceof Ambulancia) {
+			img = imgAmbulancia;
+		} else if (e instanceof Fogo) {
+			img = imgFogo;
+    	} else {
+    		img = imgFundoBranca;
+    	}
+		return img;
+	}
+	
+    public void init(int nroLinhas, int nroColunas, int nroRefugiados, int nroBombeiros, int nroFogos, int nroAmbulancias) {
+    	this.linhas = nroLinhas;
+    	this.colunas = nroColunas;
+        this.criaInterface();
         
+    	Elemento e;
+        this.m = new ArrayList<ArrayList>();
+        this.semaforos = new ArrayList<ArrayList>();
+        for (int i = 0; i < this.linhas; i++) {
+        	this.m.add(new ArrayList<Elemento>());
+        	this.semaforos.add(new ArrayList<Semaforo>());
+        	
+        	for (int j = 0; j < this.colunas; j++) {
+        		JButton bt = new BotaoTab(this.getBotaoElemento(null));
+        		bt.setBorder(new LineBorder(new Color(205,201,201)));
+        		
+        		e = new Vazio(0, i, j);
+        		e.bt = bt;
+        		this.m.get(i).add(e);
+
+        		this.semaforos.get(i).add(new Semaforo(1));
+        		
+        		this.painel.add(bt);
+        	}
+        }
+        
+        this.countVitimas(0);
+        this.countVitimasSalvas(0);
+        this.countVitimasFatais(0);
+        
+        this.criaElementos(nroLinhas, nroColunas, nroRefugiados, nroBombeiros, nroFogos, nroAmbulancias);
+    }
+
+    public void criaInterface() {
+        this.setSize((this.linhas*40)+100, this.colunas*40);
+        this.painel = new Panel(new GridLayout(linhas, colunas));
         this.setLayout(new BorderLayout());
         this.add(BorderLayout.CENTER, this.painel);
         
@@ -131,17 +197,6 @@ public class Ambiente extends Frame {
 		toolBar.setSize(100, 0);
 		this.add(BorderLayout.WEST, toolBar);
 		
-		/*JButton btnResetar = new JButton("Iniciar");
-		btnResetar.setMargin(new Insets(2, 2, 2, 2));
-		btnResetar.setFont(new Font("Dialog", Font.BOLD, 10));
-		btnResetar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-				
-			}
-		});
-		toolBar.add(btnResetar);
-*/
 		JSeparator separator = new JSeparator();
 		separator.setMinimumSize(new Dimension(1, 1));
 		separator.setMaximumSize(new Dimension(32767, 2));
@@ -222,71 +277,8 @@ public class Ambiente extends Frame {
 
 		this.labVitimasFatais = new JLabel();
 		toolBar.add(this.labVitimasFatais);
-
-        WindowListener listener = new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                Object origem = e.getSource();
-                if (origem == Ambiente.this) {
-                    System.exit(0);
-                }
-            }
-        };
-        this.addWindowListener(listener);  
     }
-
-	public ImageIcon getBotaoElemento(Elemento e) {
-		ImageIcon img = null;
-		if (e instanceof Bombeiro) {
-			if (((Bombeiro) e).vitima == null) {
-				img = imgBombeiro;
-			} else {
-				img = imgBombeiroResgate;
-			}
-		} else if (e instanceof Refugiado) {
-			img = imgRefugiado;
-		} else if (e instanceof Vitima) {
-			img = imgVitima;
-		} else if (e instanceof Ambulancia) {
-			img = imgAmbulancia;
-		} else if (e instanceof Fogo) {
-			img = imgFogo;
-    	} else {
-    		img = imgFundoBranca;
-    	}
-		return img;
-	}
-	
-    public void init(int nroLinhas, int nroColunas, int nroRefugiados, int nroBombeiros, int nroFogos, int nroAmbulancias) {
-    	this.linhas = nroLinhas;
-    	this.colunas = nroColunas;
-    	Elemento e;
-        this.m = new ArrayList<ArrayList>();
-        this.semaforos = new ArrayList<ArrayList>();
-        for (int i = 0; i < this.linhas; i++) {
-        	this.m.add(new ArrayList<Elemento>());
-        	this.semaforos.add(new ArrayList<Semaforo>());
-        	
-        	for (int j = 0; j < this.colunas; j++) {
-        		JButton bt = new BotaoTab(this.getBotaoElemento(null));
-        		bt.setBorder(new LineBorder(new Color(205,201,201)));
-        		
-        		e = new Vazio(0, i, j);
-        		e.bt = bt;
-        		this.m.get(i).add(e);
-
-        		this.semaforos.get(i).add(new Semaforo(1));
-        		
-        		this.painel.add(bt);
-        	}
-        }
-        
-        this.countVitimas(0);
-        this.countVitimasSalvas(0);
-        this.countVitimasFatais(0);
-        
-        this.criaElementos(nroLinhas, nroColunas, nroRefugiados, nroBombeiros, nroFogos, nroAmbulancias);
-    }
-
+    
     public void criaElementos(int nroLinhas, int nroColunas, int nroRefugiados, int nroBombeiros, int nroFogos, int nroAmbulancias) {
     	//colocar na interface para escolher as quantidades
     	int i, randl, randc;
@@ -423,7 +415,7 @@ public class Ambiente extends Frame {
 
 	public void countAmbulancias(int n) {
 		this.countAmbulancias += n;
-		this.labAmbulancias.setText("Ambulâncias: "+this.countAmbulancias);
+		this.labAmbulancias.setText("Ambulï¿½ncias: "+this.countAmbulancias);
 	}
 
 	public void countRefugiados(int n) {
@@ -433,22 +425,22 @@ public class Ambiente extends Frame {
 
 	public void countFogo(int n) {
 		this.countFogo += n;
-		this.labFogo.setText("Incêndios: "+this.countFogo);
+		this.labFogo.setText("Incï¿½ndios: "+this.countFogo);
 	}
 
 	public void countVitimas(int n) {
 		this.countVitimas += n;
-		this.labVitimas.setText("Vítimas: "+this.countVitimas);
+		this.labVitimas.setText("Vï¿½timas: "+this.countVitimas);
 	}
 
 	public void countVitimasSalvas(int n) {
 		this.countVitimasSalvas += n;
-		this.labVitimasSalvas.setText("Vítimas salvas: "+this.countVitimasSalvas);
+		this.labVitimasSalvas.setText("Vï¿½timas salvas: "+this.countVitimasSalvas);
 	}
 
 	public void countVitimasFatais(int n) {
 		this.countVitimasFatais += n;
-		this.labVitimasFatais.setText("Vítimas fatais: "+this.countVitimasFatais);
+		this.labVitimasFatais.setText("Vï¿½timas fatais: "+this.countVitimasFatais);
 	}
 
 	public class BotaoTab extends JButton implements MouseListener {
