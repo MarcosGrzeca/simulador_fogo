@@ -47,7 +47,6 @@ public class Bombeiro extends Elemento {
 			nc = this.c;
 			if (amb_proxima == null) {
 				System.out.println("Nao achei ambulancia");
-				
 			} else {
 				int f = Util.rand(0, 1);
 				if (f == 0) {
@@ -81,7 +80,12 @@ public class Bombeiro extends Elemento {
 			float d = 0, distance = 9999;
 			ArrayList<Ambulancia> ambulancias = this.amb.getListAmbulancias();
 			for (Ambulancia ambulancia : ambulancias) {
-				d = (ambulancia.getLinha() - this.l) + (ambulancia.getColuna() - this.c);
+//				d = (ambulancia.getLinha() - this.l) + (ambulancia.getColuna() - this.c);
+				if (ambulancia.getColuna() - this.c != 0) {
+					d = (ambulancia.getLinha() - this.l) / (ambulancia.getColuna() - this.c);
+				} else {
+					d = 0;
+				}
 				if (d <= distance) {
 					distance = d;
 					this.ambulancia = ambulancia;
