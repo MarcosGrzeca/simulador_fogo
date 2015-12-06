@@ -48,10 +48,12 @@ public class Elemento extends Thread {
 		
 		this.amb.removeElemento(this.l, this.c);
 		
+		this.amb.mutex.down();
 		int ll = this.l;
 		int lc = this.c;
 		this.l = nova_linha;
 		this.c = nova_coluna;
+		this.amb.mutex.up();
 		
 		this.amb.setElemento(this);
 
@@ -131,7 +133,7 @@ public class Elemento extends Thread {
 	}
 
 	public String toString() {
-		return "Elemento " + this.id;
+		return ""+this.id;
 	}
 
 }

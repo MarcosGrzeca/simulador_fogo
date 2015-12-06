@@ -97,10 +97,13 @@ public class Bombeiro extends Elemento {
 	}
 	
 	public void resgatar(Vitima vitima) {
-		this.bt.setIcon(this.amb.getBotaoElemento(this));
-		
+//		this.amb.mutex.down();
 		vitima.resgatar();
 		this.vitima = vitima;
+
+		this.bt.setIcon(this.amb.getBotaoElemento(this));
+
+//		this.amb.mutex.up();
 	}
 	
 	public void resgatarFinal(int curar) {

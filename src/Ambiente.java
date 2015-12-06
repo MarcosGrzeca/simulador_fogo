@@ -40,6 +40,7 @@ public class Ambiente extends Frame {
 
 	private ArrayList<ArrayList> m;
 	private ArrayList<ArrayList> semaforos;
+	public Semaforo mutex;
 
 	private int countBombeiros;
 	private JLabel labBombeiros;
@@ -173,6 +174,8 @@ public class Ambiente extends Frame {
         		this.painel.add(bt);
         	}
         }
+        
+        this.mutex = new Semaforo(1);
         
         this.countVitimas(0);
         this.countVitimasSalvas(0);
@@ -376,7 +379,22 @@ public class Ambiente extends Frame {
     public void printMatriz() {
     	for (int i = 0; i < this.m.size(); i++) {
     		for (int j = 0; j < this.m.get(i).size(); j++) {
-    			System.out.print(this.getElemento(i, j)+" - ");
+    			Elemento e = this.getElemento(i, j);
+    			String pr;
+    			if (e instanceof Bombeiro) {
+    				pr = "B";
+    			} else if (e instanceof Refugiado) {
+    				pr = "R";
+    			} else if (e instanceof Vitima) {
+    				pr = "V";
+    			} else if (e instanceof Fogo) {
+    				pr = "F";
+    			} else if (e instanceof Ambulancia) {
+    				pr = "A";
+    			} else {
+    				pr = "X";
+    			}
+    			System.out.print(pr+e+" ");
     		}
     		System.out.println();
     	}
@@ -390,7 +408,7 @@ public class Ambiente extends Frame {
     public void printSemaforos() {
     	for (int i = 0; i < this.semaforos.size(); i++) {
     		for (int j = 0; j < this.semaforos.get(i).size(); j++) {
-    			System.out.print(this.getSemaforo(i, j).getTotal());	
+    			System.out.print(" "+this.getSemaforo(i, j).getTotal() + " ");	
     			if (this.getSemaforo(i, j).getTotal() > 1) {
     				/*System.out.println("DEADLOCO--------------------------");
     				for (int ii = 0; ii < this.m.size(); ii++) {
