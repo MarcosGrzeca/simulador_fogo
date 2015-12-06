@@ -22,7 +22,7 @@ public class Tempo extends Thread {
 		while (true) {
 			try {
 				this.atualizar();
-				Thread.sleep(1);
+				Thread.sleep(1000);
 //				this.amb.printSemaforos();
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
