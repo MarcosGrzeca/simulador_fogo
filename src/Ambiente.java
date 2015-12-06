@@ -27,11 +27,16 @@ import javax.swing.border.LineBorder;
 
 public class Ambiente extends Frame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2L;
+
 	private static Ambiente instance = null;
 
     private int linhas = 15;
 	private int colunas = 15;
-	public int unTempo = 500;
+	public int unTempo = 1000;
 
 	private ArrayList<ArrayList> m;
 	private ArrayList<ArrayList> semaforos;
@@ -385,14 +390,14 @@ public class Ambiente extends Frame {
     public void printSemaforos() {
     	for (int i = 0; i < this.semaforos.size(); i++) {
     		for (int j = 0; j < this.semaforos.get(i).size(); j++) {
-    			System.out.print(this.getSemaforo(i, j).getTotal());
+    			System.out.print(this.getSemaforo(i, j).getTotal());	
     			if (this.getSemaforo(i, j).getTotal() > 1) {
-    				System.out.println("DEADLOCO--------------------------");
+    				/*System.out.println("DEADLOCO--------------------------");
     				for (int ii = 0; ii < this.m.size(); ii++) {
     		    		for (int jj = 0; jj < this.m.get(ii).size(); jj++) {
     		    			this.getElemento(ii, jj).interrupt();
     		    		}
-    		    	}
+    		    	}*/
     			}
     		}
     		System.out.println();
@@ -468,7 +473,12 @@ public class Ambiente extends Frame {
 	}
 
 	public class BotaoTab extends JButton implements MouseListener {
-	    //usa o construtor da classe super (JButton), e adiciona o mouselistener ao objeto  
+	    /**
+		 * 
+		 */
+		private static final long serialVersionUID = 3L;
+
+		//usa o construtor da classe super (JButton), e adiciona o mouselistener ao objeto  
 	    BotaoTab(ImageIcon img) //, int x, int y, int corFundo)  
 	    {  
 	        this.setIcon(img);
