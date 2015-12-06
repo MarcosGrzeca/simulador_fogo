@@ -33,6 +33,9 @@ public class Vitima extends Elemento {
 				
 				Refugiado r = new Refugiado(this.id, nl, nc);
 				this.amb.setElemento(r);
+				try{
+				    Thread.sleep(this.amb.unTempo);
+				}catch(Exception e){}
 				r.start();
 				
 				this.amb.countVitimasSalvas(1);
@@ -52,9 +55,8 @@ public class Vitima extends Elemento {
 		if (this.resgatado == 0) {
 			this.amb.removeElemento(this.l, this.c);
 			this.amb.getSemaforo(this.l, this.c).up();
-			
-			this.amb.countVitimasFatais(1);
 		}
+		this.amb.countVitimasFatais(1);
 		
 		this.amb.countVitimas(-1);
 		
