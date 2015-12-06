@@ -86,6 +86,7 @@ public class Bombeiro extends Elemento {
 				} else {
 					d = 0;
 				}
+				d = Math.abs(d);
 				if (d <= distance) {
 					distance = d;
 					this.ambulancia = ambulancia;
