@@ -1,4 +1,5 @@
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class Main {
 
@@ -18,5 +19,9 @@ public class Main {
         frameTelaConfiguracao.setLocationByPlatform(true);
         frameTelaConfiguracao.setVisible(true);
         frameTelaConfiguracao.setTitle("Simulação Resgate");
+        
+        
+        Main.iniciarSimulacao(15, 15, 5, 5, 5, 5);
+        
 	}
 }

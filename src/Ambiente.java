@@ -36,11 +36,19 @@ public class Ambiente extends Frame {
 
     private int linhas = 15;
 	private int colunas = 15;
-	public int unTempo = 1000;
+	public int unTempo = 100;
+	public int totalBarreira;
+	public int totalPassaramBarreira = 0;
 
 	private ArrayList<ArrayList> m;
 	private ArrayList<ArrayList> semaforos;
 	public Semaforo mutex;
+	public Semaforo mutexSemaforo = new Semaforo(1);
+	public Semaforo mutexElemento = new Semaforo(1);
+	public Semaforo mutexMove = new Semaforo(1);
+	public Semaforo mutexVitimas = new Semaforo(1);
+	public Semaforo mutexBarreira = new Semaforo(1);
+	public Semaforo barreira = new Semaforo(0);
 
 	private int countBombeiros;
 	private JLabel labBombeiros;
@@ -76,7 +84,7 @@ public class Ambiente extends Frame {
 	}
 	
     public Ambiente() {
-    	this.setTitle("SimulaÃ§Ã£o combate ao fogo e resgate de vÃ­timas");
+    	this.setTitle("Simulação combate ao fogo e resgate de vítimas");
         this.setLocationRelativeTo(null);
         this.setResizable(false);
 
@@ -282,13 +290,31 @@ public class Ambiente extends Frame {
     }
     
     public void criaElementos(int nroLinhas, int nroColunas, int nroRefugiados, int nroBombeiros, int nroFogos, int nroAmbulancias) {
+    	System.out.println("Criando ambiente");
     	//colocar na interface para escolher as quantidades
+    	
     	int i, randl, randc;
+    	this.totalBarreira = nroRefugiados + nroBombeiros + nroFogos + nroAmbulancias;
+    	
+    	for (i = 1; i <= nroAmbulancias; i++) {
+    		while (true) {
+	    		randl = Util.rand(0, this.linhas-1);
+	    		randc = Util.rand(0, this.colunas-1);
+	    		
+	    		if (this.getSemaforo(randl, randc).getTotal() > 0) {
+		    		Ambulancia r = new Ambulancia(i, randl, randc);
+			        r.start();
+			        this.getSemaforo(randl, randc).down();
+			        break;
+	    		}
+    		}
+    	}
+    	
     	for (i = 1; i <= nroBombeiros; i++) {
     		while (true) {
     	    	randl = Util.rand(0, this.linhas-1);
 	    		randc = Util.rand(0, this.colunas-1);
-	    		if (this.getElemento(randl, randl) instanceof Vazio) {      	
+	    		if (this.getSemaforo(randl, randc).getTotal() > 0) {      	
 			        Bombeiro b = new Bombeiro(i, randl, randc);
 			        b.start();
 			        this.getSemaforo(randl, randc).down();
@@ -302,7 +328,7 @@ public class Ambiente extends Frame {
 	    		randl = Util.rand(0, this.linhas-1);
 	    		randc = Util.rand(0, this.colunas-1);
     		
-	    		if (this.getElemento(randl, randl) instanceof Vazio) {      
+	    		if (this.getSemaforo(randl, randc).getTotal() > 0) {      
 					Refugiado r = new Refugiado(i, randl, randc);
 			        r.start();
 			        this.getSemaforo(randl, randc).down();
@@ -310,28 +336,14 @@ public class Ambiente extends Frame {
 	    		}
     		}
     	}
-    	
-    	for (i = 1; i <= nroFogos; i++) {
+
+       	for (i = 1; i <= nroFogos; i++) {
     		while (true) {
     	    	randl = Util.rand(0, this.linhas-1);
 	    		randc = Util.rand(0, this.colunas-1);
-	    		if (this.getElemento(randl, randl) instanceof Vazio) {   
-		    		Fogo r = new Fogo(i, randl, randc);
-			        r.start();
-			        this.getSemaforo(randl, randc).down();
-			        break;
-	    		}
-    		}
-    	}
-
-    	for (i = 1; i <= nroAmbulancias; i++) {
-    		while (true) {
-	    		randl = Util.rand(0, this.linhas-1);
-	    		randc = Util.rand(0, this.colunas-1);
-	    		
-	    		if (this.getElemento(randl, randl) instanceof Vazio) {
-		    		Ambulancia r = new Ambulancia(i, randl, randc);
-			        r.start();
+	    		if (this.getSemaforo(randl, randc).getTotal() > 0) {   
+		    		Fogo f = new Fogo(i, randl, randc);
+			        f.start();
 			        this.getSemaforo(randl, randc).down();
 			        break;
 	    		}
@@ -340,11 +352,14 @@ public class Ambiente extends Frame {
     	
     	Tempo t = new Tempo(this);
     	t.start();
-    	
+    	System.out.println("Fim criacao ambiente");
     }
     
     public Elemento getElemento(int l, int c) {
-    	return (Elemento) this.m.get(l).get(c);
+    	this.mutexElemento.down();
+    	Elemento el = (Elemento) this.m.get(l).get(c);
+    	this.mutexElemento.up();
+    	return el;
     }
     
     public void setElemento(Elemento e) {
@@ -402,7 +417,11 @@ public class Ambiente extends Frame {
     }
     
     public Semaforo getSemaforo(int l, int c) {
-    	return (Semaforo) this.semaforos.get(l).get(c);
+    	//Por mutex
+    	this.mutexSemaforo.down();
+    	Semaforo s = (Semaforo) this.semaforos.get(l).get(c);
+    	this.mutexSemaforo.up();
+    	return s;
     }
 
     public void printSemaforos() {
@@ -462,7 +481,7 @@ public class Ambiente extends Frame {
 
 	public void countAmbulancias(int n) {
 		this.countAmbulancias += n;
-		this.labAmbulancias.setText("AmbulÃ¢ncias: "+this.countAmbulancias);
+		this.labAmbulancias.setText("Ambulâncias: "+this.countAmbulancias);
 	}
 
 	public void countRefugiados(int n) {
@@ -472,22 +491,22 @@ public class Ambiente extends Frame {
 
 	public void countFogo(int n) {
 		this.countFogo += n;
-		this.labFogo.setText("IncÃªndios: "+this.countFogo);
+		this.labFogo.setText("Incêndios: "+this.countFogo);
 	}
 
 	public void countVitimas(int n) {
 		this.countVitimas += n;
-		this.labVitimas.setText("VÃ­timas: "+this.countVitimas);
+		this.labVitimas.setText("Vítimas: "+this.countVitimas);
 	}
 
 	public void countVitimasSalvas(int n) {
 		this.countVitimasSalvas += n;
-		this.labVitimasSalvas.setText("VÃ­timas salvas: "+this.countVitimasSalvas);
+		this.labVitimasSalvas.setText("Vítimas salvas: "+this.countVitimasSalvas);
 	}
 
 	public void countVitimasFatais(int n) {
 		this.countVitimasFatais += n;
-		this.labVitimasFatais.setText("VÃ­timas fatais: "+this.countVitimasFatais);
+		this.labVitimasFatais.setText("Vítimas fatais: "+this.countVitimasFatais);
 	}
 
 	public class BotaoTab extends JButton implements MouseListener {

@@ -48,12 +48,12 @@ public class Elemento extends Thread {
 		
 		this.amb.removeElemento(this.l, this.c);
 		
-		this.amb.mutex.down();
+//		this.amb.mutex.down();
 		int ll = this.l;
 		int lc = this.c;
 		this.l = nova_linha;
 		this.c = nova_coluna;
-		this.amb.mutex.up();
+//		this.amb.mutex.up();
 		
 		this.amb.setElemento(this);
 
@@ -65,11 +65,15 @@ public class Elemento extends Thread {
 	}
 
 	public void moveComSemaforo(int nl, int nc) {
+		this.amb.mutexMove.down();
 		Elemento elemento_atual = this.amb.getElemento(nl, nc);
+		Semaforo sem = this.amb.getSemaforo(nl, nc);
 		//TESTAR SEMAFORO
-		if (elemento_atual instanceof Vazio) {
+		if (sem.getTotal() == 1) {
+			this.amb.mutexMove.up();
 			this.move(nl, nc);
 		} else {
+			this.amb.mutexMove.up();
 			try{
 			    Thread.sleep(this.amb.unTempo);
 			}catch(Exception e){}
@@ -111,6 +115,16 @@ public class Elemento extends Thread {
 	}
 	
 	public void run(){
+		this.amb.mutexBarreira.down();
+		this.amb.totalPassaramBarreira++;
+		if (this.amb.totalPassaramBarreira < this.amb.totalBarreira) {
+			this.amb.mutexBarreira.up();
+			this.amb.barreira.down();
+		} else {
+			this.amb.mutexBarreira.up();
+		}
+		this.amb.barreira.up();
+		
 		while(true) {
 			this.andar();
 		}

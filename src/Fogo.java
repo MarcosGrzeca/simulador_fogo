@@ -9,11 +9,13 @@ public class Fogo extends Elemento {
 		while (true) {
 			int randl = Util.rand(0, this.amb.getLinhas()-1);
 			int randc = Util.rand(0, this.amb.getColunas()-1);
-			
-			Elemento elemento_atual = this.amb.getElemento(randl, randc);
-			if (elemento_atual instanceof Vazio) {
+			this.amb.mutexMove.down();
+			if (this.amb.getSemaforo(randl, randc).getTotal() > 0) {
+				this.amb.mutexMove.up();
 				this.move(randl, randc);
 				break;
+			} else {
+				this.amb.mutexMove.up();
 			}
 		}
 	}
@@ -21,6 +23,16 @@ public class Fogo extends Elemento {
 	public void run(){
 		this.amb.setElemento(this);
 		this.amb.countFogo(1);
+
+		this.amb.mutexBarreira.down();
+		this.amb.totalPassaramBarreira++;
+		if (this.amb.totalPassaramBarreira < this.amb.totalBarreira) {
+			this.amb.mutexBarreira.up();
+			this.amb.barreira.down();
+		} else {
+			this.amb.mutexBarreira.up();
+		}
+		this.amb.barreira.up();
 		
 		while(true) {
 			try{

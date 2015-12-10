@@ -13,7 +13,6 @@ public class Vitima extends Elemento {
 
 	public void resgatar() {
 		this.resgatado = 1;
-		
 		this.amb.removeElemento(this.l, this.c);
 		this.amb.getSemaforo(this.l, this.c).up();
 	}

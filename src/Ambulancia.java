@@ -9,6 +9,15 @@ public class Ambulancia extends Elemento {
 		this.amb.setElemento(this);
 		this.amb.countAmbulancias(1);
 		
+		this.amb.mutexBarreira.down();
+		this.amb.totalPassaramBarreira++;
+		if (this.amb.totalPassaramBarreira < this.amb.totalBarreira) {
+			this.amb.mutexBarreira.up();
+			this.amb.barreira.down();
+		} else {
+			this.amb.mutexBarreira.up();
+		}
+		this.amb.barreira.up();
 		while(true) {
 			try{
 			    Thread.sleep(this.amb.unTempo*30);

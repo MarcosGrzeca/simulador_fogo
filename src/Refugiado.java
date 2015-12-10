@@ -26,8 +26,6 @@ public class Refugiado extends Elemento {
 	}
 	
 	public void transformaVitima() {
-//		this.amb.removeElemento(this.l, this.c);
-
 		Vitima v = new Vitima(this.id, this.l, this.c);
 		this.amb.setElemento(v);
 
