@@ -25,6 +25,7 @@ public class Bombeiro extends Elemento {
 				} else if (e instanceof Vitima) {
 					Vitima vitima = (Vitima) e;
 					this.resgatar(vitima);
+					return;
 				}
 			}
 			int[] mv = this.getMovimentoRand();
@@ -99,7 +100,7 @@ public class Bombeiro extends Elemento {
 	
 	public void resgatarFinal(int curar) {
 		if (curar == 1) {
-//			this.vitima.curar(this.ambulancia.getLinha(), this.ambulancia.getColuna());
+			this.vitima.curar(this.ambulancia.getLinha(), this.ambulancia.getColuna());
 		}
 		this.vitima = null;
 		this.ambulancia = null;
@@ -109,6 +110,8 @@ public class Bombeiro extends Elemento {
 
 	public void run(){
 		this.amb.countBombeiros(1);
-		super.run();
+		while(true) {
+			this.andar();
+		}
 	}	
 }
