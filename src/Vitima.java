@@ -27,9 +27,14 @@ public class Vitima extends Elemento {
 			int nl = mv[0];
 			int nc = mv[1];
 			if (this.l == nl && this.c == nc) {
+				try{
+				    Thread.sleep(this.amb.unTempo);
+				}catch(Exception e){}
 				continue;
 			}
+//			this.amb.mutexMove.down();
 			if (this.amb.getSemaforo(nl, nc).getTotal() > 0) {
+//				this.amb.mutexMove.up();
 				this.amb.getSemaforo(nl, nc).down();
 				
 				Refugiado r = new Refugiado(this.id, nl, nc);
@@ -47,6 +52,7 @@ public class Vitima extends Elemento {
 				this.stop();
 				break;
 			} else {
+//				this.amb.mutexMove.up();
 				try{
 				    Thread.sleep(this.amb.unTempo);
 				}catch(Exception e){}

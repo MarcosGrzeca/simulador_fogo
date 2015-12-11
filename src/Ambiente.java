@@ -48,6 +48,13 @@ public class Ambiente extends Frame {
 //	public Semaforo mutexVitimas = new Semaforo(1);
 //	public Semaforo mutexBarreira = new Semaforo(1);
 //	public Semaforo barreira = new Semaforo(0);
+	private Semaforo mutexBombeiros = new Semaforo(1);
+	private Semaforo mutexAmbulancias = new Semaforo(1);
+	private Semaforo mutexRefugiados = new Semaforo(1);
+	private Semaforo mutexFogo = new Semaforo(1);
+	private Semaforo mutexVitimas = new Semaforo(1);
+	private Semaforo mutexVitimasSalvas = new Semaforo(1);
+	private Semaforo mutexVitimasFatais = new Semaforo(1);
 
 	private int countBombeiros;
 	private JLabel labBombeiros;
@@ -471,38 +478,52 @@ public class Ambiente extends Frame {
 	}
 	
 	public void countBombeiros(int n) {
+		this.mutexBombeiros.down();
 		this.countBombeiros += n;
 		this.labBombeiros.setText("Bombeiros: "+this.countBombeiros);
+		this.mutexBombeiros.up();
 	}
 
 	public void countAmbulancias(int n) {
+		this.mutexAmbulancias.down();
 		this.countAmbulancias += n;
 		this.labAmbulancias.setText("Ambul�ncias: "+this.countAmbulancias);
+		this.mutexAmbulancias.up();
 	}
 
 	public void countRefugiados(int n) {
+		this.mutexRefugiados.down();
 		this.countRefugiados += n;
 		this.labRefugiados.setText("Refugiados: "+this.countRefugiados);
+		this.mutexRefugiados.up();
 	}
 
 	public void countFogo(int n) {
+		this.mutexFogo.down();
 		this.countFogo += n;
 		this.labFogo.setText("Inc�ndios: "+this.countFogo);
+		this.mutexFogo.up();
 	}
 
 	public void countVitimas(int n) {
+		this.mutexVitimas.down();
 		this.countVitimas += n;
 		this.labVitimas.setText("V�timas: "+this.countVitimas);
+		this.mutexVitimas.up();
 	}
 
 	public void countVitimasSalvas(int n) {
+		this.mutexVitimasSalvas.down();
 		this.countVitimasSalvas += n;
 		this.labVitimasSalvas.setText("V�timas salvas: "+this.countVitimasSalvas);
+		this.mutexVitimasSalvas.up();
 	}
 
 	public void countVitimasFatais(int n) {
+		this.mutexVitimasFatais.down();
 		this.countVitimasFatais += n;
 		this.labVitimasFatais.setText("V�timas fatais: "+this.countVitimasFatais);
+		this.mutexVitimasFatais.up();
 	}
 
 	public class BotaoTab extends JButton implements MouseListener {

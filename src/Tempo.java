@@ -19,7 +19,7 @@ public class Tempo extends Thread {
 	}
 
 	public void run() {
-		while (true) {
+		while (!Thread.currentThread().isInterrupted()) {
 			try {
 				this.atualizar();
 				Thread.sleep(1000);
