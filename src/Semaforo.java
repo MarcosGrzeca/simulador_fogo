@@ -20,6 +20,9 @@ public class Semaforo {
 	public synchronized void up(){ //V
 		//libera threads
 		this.total++;
+		if (this.total == 2) {
+			System.out.println("Erro");
+		}
 		this.notifyAll();
 	}
 

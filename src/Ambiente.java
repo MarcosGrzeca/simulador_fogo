@@ -42,13 +42,12 @@ public class Ambiente extends Frame {
 
 	private ArrayList<ArrayList> m;
 	private ArrayList<ArrayList> semaforos;
-	public Semaforo mutex;
 	public Semaforo mutexSemaforo = new Semaforo(1);
 	public Semaforo mutexElemento = new Semaforo(1);
 	public Semaforo mutexMove = new Semaforo(1);
-	public Semaforo mutexVitimas = new Semaforo(1);
-	public Semaforo mutexBarreira = new Semaforo(1);
-	public Semaforo barreira = new Semaforo(0);
+//	public Semaforo mutexVitimas = new Semaforo(1);
+//	public Semaforo mutexBarreira = new Semaforo(1);
+//	public Semaforo barreira = new Semaforo(0);
 
 	private int countBombeiros;
 	private JLabel labBombeiros;
@@ -84,7 +83,7 @@ public class Ambiente extends Frame {
 	}
 	
     public Ambiente() {
-    	this.setTitle("Simulação combate ao fogo e resgate de vítimas");
+    	this.setTitle("Simulaï¿½ï¿½o combate ao fogo e resgate de vï¿½timas");
         this.setLocationRelativeTo(null);
         this.setResizable(false);
 
@@ -182,8 +181,6 @@ public class Ambiente extends Frame {
         		this.painel.add(bt);
         	}
         }
-        
-        this.mutex = new Semaforo(1);
         
         this.countVitimas(0);
         this.countVitimasSalvas(0);
@@ -290,8 +287,7 @@ public class Ambiente extends Frame {
     }
     
     public void criaElementos(int nroLinhas, int nroColunas, int nroRefugiados, int nroBombeiros, int nroFogos, int nroAmbulancias) {
-    	System.out.println("Criando ambiente");
-    	//colocar na interface para escolher as quantidades
+//    	System.out.println("Criando ambiente");
     	
     	int i, randl, randc;
     	this.totalBarreira = nroRefugiados + nroBombeiros + nroFogos + nroAmbulancias;
@@ -352,7 +348,7 @@ public class Ambiente extends Frame {
     	
     	Tempo t = new Tempo(this);
     	t.start();
-    	System.out.println("Fim criacao ambiente");
+//    	System.out.println("Fim criacao ambiente");
     }
     
     public Elemento getElemento(int l, int c) {
@@ -481,7 +477,7 @@ public class Ambiente extends Frame {
 
 	public void countAmbulancias(int n) {
 		this.countAmbulancias += n;
-		this.labAmbulancias.setText("Ambulâncias: "+this.countAmbulancias);
+		this.labAmbulancias.setText("Ambulï¿½ncias: "+this.countAmbulancias);
 	}
 
 	public void countRefugiados(int n) {
@@ -491,22 +487,22 @@ public class Ambiente extends Frame {
 
 	public void countFogo(int n) {
 		this.countFogo += n;
-		this.labFogo.setText("Incêndios: "+this.countFogo);
+		this.labFogo.setText("Incï¿½ndios: "+this.countFogo);
 	}
 
 	public void countVitimas(int n) {
 		this.countVitimas += n;
-		this.labVitimas.setText("Vítimas: "+this.countVitimas);
+		this.labVitimas.setText("Vï¿½timas: "+this.countVitimas);
 	}
 
 	public void countVitimasSalvas(int n) {
 		this.countVitimasSalvas += n;
-		this.labVitimasSalvas.setText("Vítimas salvas: "+this.countVitimasSalvas);
+		this.labVitimasSalvas.setText("Vï¿½timas salvas: "+this.countVitimasSalvas);
 	}
 
 	public void countVitimasFatais(int n) {
 		this.countVitimasFatais += n;
-		this.labVitimasFatais.setText("Vítimas fatais: "+this.countVitimasFatais);
+		this.labVitimasFatais.setText("Vï¿½timas fatais: "+this.countVitimasFatais);
 	}
 
 	public class BotaoTab extends JButton implements MouseListener {

@@ -41,6 +41,7 @@ public class Bombeiro extends Elemento {
 			}
 			if (this.vitima.tempo > this.vitima.tempoMaxMorte) {
 				this.resgatarFinal(0);
+				return;
 			}
 			Ambulancia amb_proxima = this.getAmbulanciaMaisProxima();
 			nl = this.l;
@@ -80,13 +81,7 @@ public class Bombeiro extends Elemento {
 			float d = 0, distance = 9999;
 			ArrayList<Ambulancia> ambulancias = this.amb.getListAmbulancias();
 			for (Ambulancia ambulancia : ambulancias) {
-//				d = (ambulancia.getLinha() - this.l) + (ambulancia.getColuna() - this.c);
-				if (ambulancia.getColuna() - this.c != 0) {
-					d = (ambulancia.getLinha() - this.l) / (ambulancia.getColuna() - this.c);
-				} else {
-					d = 0;
-				}
-				d = Math.abs(d);
+				d = Math.abs(this.l - ambulancia.getLinha()) + Math.abs(this.c - ambulancia.getColuna());
 				if (d <= distance) {
 					distance = d;
 					this.ambulancia = ambulancia;
@@ -97,9 +92,9 @@ public class Bombeiro extends Elemento {
 	}
 	
 	public void resgatar(Vitima vitima) {
-//		vitima.resgatar();
-//		this.vitima = vitima;
-//		this.bt.setIcon(this.amb.getBotaoElemento(this));
+		vitima.resgatar();
+		this.vitima = vitima;
+		this.bt.setIcon(this.amb.getBotaoElemento(this));
 	}
 	
 	public void resgatarFinal(int curar) {

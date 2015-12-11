@@ -29,12 +29,16 @@ public class Vitima extends Elemento {
 			if (this.l == nl && this.c == nc) {
 				continue;
 			}
-			Elemento elemento_atual = this.amb.getElemento(nl, nc);
-			if (elemento_atual instanceof Vazio) {
+			if (this.amb.getSemaforo(nl, nc).getTotal() > 0) {
 				this.amb.getSemaforo(nl, nc).down();
 				
 				Refugiado r = new Refugiado(this.id, nl, nc);
 				this.amb.setElemento(r);
+
+				try{
+				    Thread.sleep(this.amb.unTempo);
+				}catch(Exception e){}
+
 				r.start();
 				
 				this.amb.countVitimasSalvas(1);

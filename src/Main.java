@@ -18,10 +18,10 @@ public class Main {
         frameTelaConfiguracao.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);      
         frameTelaConfiguracao.setLocationByPlatform(true);
         frameTelaConfiguracao.setVisible(true);
-        frameTelaConfiguracao.setTitle("Simulação Resgate");
+        frameTelaConfiguracao.setTitle("Simulaï¿½ï¿½o Resgate");
         
         
-        Main.iniciarSimulacao(15, 15, 5, 5, 5, 5);
+        Main.iniciarSimulacao(10, 10, 10, 4, 2, 2);
         
 	}
 }

@@ -2,7 +2,8 @@ import java.util.ArrayList;
 
 
 public class Refugiado extends Elemento {
-
+	private int isVitima = 0;
+	
 	public Refugiado(int id, int l, int c) {
 		super(id, l, c);
 	}
@@ -12,17 +13,21 @@ public class Refugiado extends Elemento {
 	 */
 	@Override
 	public void andar() {
-		ArrayList<Elemento> campos = this.getPercepcao();
-		for (Elemento e : campos) {
-			if (e instanceof Fogo) {
-				this.transformaVitima();
+		if (this.isVitima == 0) {
+			ArrayList<Elemento> campos = this.getPercepcao();
+			for (Elemento e : campos) {
+				if (e instanceof Fogo) {
+					this.isVitima = 1;
+					this.transformaVitima();
+					return;
+				}
 			}
+	
+			int[] mv = this.getMovimentoRand();
+			int nl = mv[0];
+			int nc = mv[1];
+			this.moveComSemaforo(nl, nc);
 		}
-
-		int[] mv = this.getMovimentoRand();
-		int nl = mv[0];
-		int nc = mv[1];
-		this.moveComSemaforo(nl, nc);
 	}
 	
 	public void transformaVitima() {
@@ -38,7 +43,6 @@ public class Refugiado extends Elemento {
 		this.amb.countRefugiados(-1);
 		
 		this.stop();
-		//fazer thread terminar
 	}
 
 	public void run(){
