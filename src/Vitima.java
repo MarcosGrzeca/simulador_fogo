@@ -98,7 +98,13 @@ public class Vitima extends Elemento {
 			}
 			
 			if (this.tempo > this.tempoMaxMorte) {
-				this.morrer();
+				this.semVitima.down();
+				if (this.resgatado == 0) {
+					this.semVitima.up();
+					this.morrer();
+				} else {
+					this.semVitima.up();
+				}
 			}
 			this.tempo++;
 		}

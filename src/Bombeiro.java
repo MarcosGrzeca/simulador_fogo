@@ -113,6 +113,8 @@ public class Bombeiro extends Elemento {
 	public void resgatarFinal(int curar) {
 		if (curar == 1) {
 			this.vitima.curar(this.ambulancia.getLinha(), this.ambulancia.getColuna());
+		} else {
+			this.vitima.morrer();
 		}
 		this.vitima = null;
 		this.ambulancia = null;
