@@ -36,7 +36,7 @@ public class Ambiente extends Frame {
 
     private int linhas = 15;
 	private int colunas = 15;
-	public int unTempo = 100;
+	public int unTempo = 1000;
 	public int totalBarreira;
 	public int totalPassaramBarreira = 0;
 

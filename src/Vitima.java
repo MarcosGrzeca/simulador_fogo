@@ -87,8 +87,8 @@ public class Vitima extends Elemento {
 			this.semVitima.down();
 			if (this.resgatado == 0) {
 				this.amb.mutexBombeiro.up();
-				this.semVitima.up();
 				this.andar();
+				this.semVitima.up();
 			} else {
 				this.amb.mutexBombeiro.up();
 				this.semVitima.up();
