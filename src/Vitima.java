@@ -1,9 +1,8 @@
-
-
 public class Vitima extends Elemento {
 	public int tempo;
 	public int tempoMaxMorte = 50;
 	private int resgatado = 0;
+	protected Semaforo semVitima = new Semaforo(1);
 	
 	public Vitima(int id, int l, int c) {
 		super(id, l, c);
@@ -79,9 +78,12 @@ public class Vitima extends Elemento {
 	public void run(){
 		this.amb.countVitimas(1);
 		while(true) {
+			this.semVitima.down();
 			if (this.resgatado == 0) {
 				this.andar();
+				this.semVitima.up();
 			} else {
+				this.semVitima.up();
 				try{
 				    Thread.sleep(this.amb.unTempo);
 				}catch(Exception e){}
@@ -92,6 +94,5 @@ public class Vitima extends Elemento {
 			}
 			this.tempo++;
 		}
-	}
-	
+	}	
 }
