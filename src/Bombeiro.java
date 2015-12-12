@@ -24,9 +24,7 @@ public class Bombeiro extends Elemento {
 					fogo.apagar();
 				} else if (e instanceof Vitima) {
 					Vitima vitima = (Vitima) e;
-					vitima.semVitima.down();
 					this.resgatar(vitima);
-					vitima.semVitima.up();
 					return;
 				}
 			}
@@ -95,9 +93,13 @@ public class Bombeiro extends Elemento {
 	}
 	
 	public void resgatar(Vitima vitima) {
-		vitima.resgatar();
-		this.vitima = vitima;
-		this.bt.setIcon(this.amb.getBotaoElemento(this));
+		if (vitima.resgatado == 0) {
+			vitima.semVitima.down();
+			vitima.resgatar();
+			this.vitima = vitima;
+			this.bt.setIcon(this.amb.getBotaoElemento(this));
+			vitima.semVitima.up();
+		}
 	}
 	
 	public void resgatarFinal(int curar) {

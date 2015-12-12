@@ -1,7 +1,7 @@
 public class Vitima extends Elemento {
 	public int tempo;
 	public int tempoMaxMorte = 50;
-	private int resgatado = 0;
+	public int resgatado = 0;
 	protected Semaforo semVitima = new Semaforo(1);
 	
 	public Vitima(int id, int l, int c) {
@@ -11,9 +11,11 @@ public class Vitima extends Elemento {
 	}
 
 	public void resgatar() {
-		this.resgatado = 1;
-		this.amb.removeElemento(this.l, this.c);
-		this.amb.getSemaforo(this.l, this.c).up();
+		if (this.resgatado == 0) {
+			this.resgatado = 1;
+			this.amb.removeElemento(this.l, this.c);
+			this.amb.getSemaforo(this.l, this.c).up();
+		}
 	}
 
 	@SuppressWarnings("deprecation")
@@ -80,8 +82,8 @@ public class Vitima extends Elemento {
 		while(true) {
 			this.semVitima.down();
 			if (this.resgatado == 0) {
-				this.andar();
 				this.semVitima.up();
+				this.andar();
 			} else {
 				this.semVitima.up();
 				try{
