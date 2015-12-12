@@ -51,6 +51,9 @@ public class Bombeiro extends Elemento {
 			nc = this.c;
 			if (amb_proxima == null) {
 				System.out.println("Nao achei ambulancia");
+				int[] mv = this.getMovimentoRand();
+				nl = mv[0];
+				nc = mv[1];
 			} else {
 				int f = Util.rand(0, 1);
 				if (f == 0) {
@@ -100,8 +103,9 @@ public class Bombeiro extends Elemento {
 			vitima.resgatar();
 			this.vitima = vitima;
 			this.bt.setIcon(this.amb.getBotaoElemento(this));
+		} else {
+			vitima.semVitima.up();
 		}
-		vitima.semVitima.up();
 	}
 	
 	public void resgatarFinal(int curar) {

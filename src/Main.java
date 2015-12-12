@@ -21,7 +21,7 @@ public class Main {
         frameTelaConfiguracao.setTitle("Simula��o Resgate");
         
         
-        Main.iniciarSimulacao(10, 10, 10, 4, 2, 2);
+        Main.iniciarSimulacao(10, 10, 20, 4, 2, 2);
         
 	}
 }
