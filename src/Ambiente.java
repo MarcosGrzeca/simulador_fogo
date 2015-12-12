@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.Panel;
+import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
@@ -91,8 +92,8 @@ public class Ambiente extends Frame {
 	
     public Ambiente() {
     	this.setTitle("Simula��o combate ao fogo e resgate de v�timas");
-        this.setLocationRelativeTo(null);
-        this.setResizable(false);
+    	this.setLocation(0, 0);
+      this.setResizable(false);
 
 //        this.painel.setPreferredSize(new Dimension(600, 600));
 
