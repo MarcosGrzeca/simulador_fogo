@@ -32,10 +32,10 @@ public class Vitima extends Elemento {
 				}catch(Exception e){}
 				continue;
 			}
-//			this.amb.mutexMove.down();
+			this.amb.mutexMove.down();
 			if (this.amb.getSemaforo(nl, nc).getTotal() > 0) {
-//				this.amb.mutexMove.up();
 				this.amb.getSemaforo(nl, nc).down();
+				this.amb.mutexMove.up();
 				
 				Refugiado r = new Refugiado(this.id, nl, nc);
 				this.amb.setElemento(r);
@@ -49,10 +49,14 @@ public class Vitima extends Elemento {
 				this.amb.countVitimasSalvas(1);
 				this.amb.countVitimas(-1);
 				
-				this.stop();
+				try {
+					this.stop();
+				} catch (Exception e) {
+					System.out.println("----------------NAO consegui parar a Thread");
+				}
 				break;
 			} else {
-//				this.amb.mutexMove.up();
+				this.amb.mutexMove.up();
 				try{
 				    Thread.sleep(this.amb.unTempo);
 				}catch(Exception e){}

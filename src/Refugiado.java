@@ -42,11 +42,16 @@ public class Refugiado extends Elemento {
 
 		this.amb.countRefugiados(-1);
 		
-		this.stop();
+		try {
+			this.stop();	
+		} catch (Exception e) {
+			System.out.println("Não foi possível parar a Thread Refugiado");
+		}
 	}
 
 	public void run(){
 		this.amb.countRefugiados(1);
+		System.out.println("REFUGIADO");
 		super.run();
 	}
 

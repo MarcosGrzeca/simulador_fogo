@@ -112,15 +112,15 @@ public class Elemento extends Thread {
 	}
 	
 	public void run(){
-//		this.amb.mutexBarreira.down();
-//		this.amb.totalPassaramBarreira++;
-//		if (this.amb.totalPassaramBarreira < this.amb.totalBarreira) {
-//			this.amb.mutexBarreira.up();
-//			this.amb.barreira.down();
-//		} else {
-//			this.amb.mutexBarreira.up();
-//		}
-//		this.amb.barreira.up();
+		this.amb.mutexBarreira.down();
+		this.amb.totalPassaramBarreira++;
+		if (this.amb.totalPassaramBarreira < this.amb.totalBarreira) {
+			this.amb.mutexBarreira.up();
+			this.amb.barreira.down();
+		} else {
+			this.amb.mutexBarreira.up();
+		}
+		this.amb.barreira.up();
 		
 		while(true) {
 			this.andar();

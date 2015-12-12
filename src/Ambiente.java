@@ -45,9 +45,8 @@ public class Ambiente extends Frame {
 	public Semaforo mutexSemaforo = new Semaforo(1);
 	public Semaforo mutexElemento = new Semaforo(1);
 	public Semaforo mutexMove = new Semaforo(1);
-//	public Semaforo mutexVitimas = new Semaforo(1);
-//	public Semaforo mutexBarreira = new Semaforo(1);
-//	public Semaforo barreira = new Semaforo(0);
+	public Semaforo mutexBarreira = new Semaforo(1);
+	public Semaforo barreira = new Semaforo(0);
 	private Semaforo mutexBombeiros = new Semaforo(1);
 	private Semaforo mutexAmbulancias = new Semaforo(1);
 	private Semaforo mutexRefugiados = new Semaforo(1);
@@ -298,7 +297,6 @@ public class Ambiente extends Frame {
     	
     	int i, randl, randc;
     	this.totalBarreira = nroRefugiados + nroBombeiros + nroFogos + nroAmbulancias;
-    	
     	for (i = 1; i <= nroAmbulancias; i++) {
     		while (true) {
 	    		randl = Util.rand(0, this.linhas-1);
