@@ -27,12 +27,11 @@ public class Bombeiro extends Elemento {
 				} else if (e instanceof Vitima) {
 					Vitima vitima = (Vitima) e;
 					this.amb.mutexBombeiro.up();
-//					vitima.semVitima.down();
 					this.resgatar(vitima);
-//					vitima.semVitima.up();
 					return;
 				}
 			}
+			this.amb.mutexBombeiro.up();
 			int[] mv = this.getMovimentoRand();
 			nl = mv[0];
 			nc = mv[1];

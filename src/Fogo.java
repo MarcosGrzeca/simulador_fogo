@@ -11,8 +11,8 @@ public class Fogo extends Elemento {
 			int randc = Util.rand(0, this.amb.getColunas()-1);
 			this.amb.mutexMove.down();
 			if (this.amb.getSemaforo(randl, randc).getTotal() > 0) {
-				this.amb.mutexMove.up();
-				this.move(randl, randc);
+				this.move(randl, randc, true);
+//				this.amb.mutexMove.up();
 				break;
 			} else {
 				this.amb.mutexMove.up();

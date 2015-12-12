@@ -43,7 +43,7 @@ public class Elemento extends Thread {
 		return list;
 	}
 	
-	public void move(int nova_linha, int nova_coluna) {
+	public void move(int nova_linha, int nova_coluna, boolean liberarSemaforo) {
 		this.amb.getSemaforo(nova_linha, nova_coluna).down();
 		
 		this.amb.removeElemento(this.l, this.c);
@@ -55,11 +55,31 @@ public class Elemento extends Thread {
 		
 		this.amb.setElemento(this);
 
+		if (liberarSemaforo) {
+			this.amb.mutexMove.up();
+		}
+		this.amb.getSemaforo(ll, lc).up();
+		try{
+		    Thread.sleep(this.amb.unTempo);
+		}catch(Exception e){}
+	}
+	
+	public void move(int nova_linha, int nova_coluna) {
+		this.amb.getSemaforo(nova_linha, nova_coluna).down();
+		
+		this.amb.removeElemento(this.l, this.c);
+		
+		int ll = this.l;
+		int lc = this.c;
+		this.l = nova_linha;
+		this.c = nova_coluna;
+		
+		this.amb.setElemento(this);
+		this.amb.getSemaforo(ll, lc).up();
 		try{
 		    Thread.sleep(this.amb.unTempo);
 		}catch(Exception e){}
 
-		this.amb.getSemaforo(ll, lc).up();
 	}
 
 	public void moveComSemaforo(int nl, int nc) {
@@ -67,8 +87,8 @@ public class Elemento extends Thread {
 //		Elemento elemento_atual = this.amb.getElemento(nl, nc);
 		Semaforo sem = this.amb.getSemaforo(nl, nc);
 		if (sem.getTotal() > 0) {
-			this.amb.mutexMove.up();
-			this.move(nl, nc);
+//			this.amb.mutexMove.up();
+			this.move(nl, nc, true);
 		} else {
 			this.amb.mutexMove.up();
 			try{

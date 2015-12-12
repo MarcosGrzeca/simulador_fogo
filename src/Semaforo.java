@@ -26,7 +26,7 @@ public class Semaforo {
 		this.notifyAll();
 	}
 
-	public int getTotal() {
+	public synchronized int getTotal() {
 		return this.total;
 	}
 }
