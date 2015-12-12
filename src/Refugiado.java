@@ -51,7 +51,6 @@ public class Refugiado extends Elemento {
 
 	public void run(){
 		this.amb.countRefugiados(1);
-		System.out.println("REFUGIADO");
 		super.run();
 	}
 

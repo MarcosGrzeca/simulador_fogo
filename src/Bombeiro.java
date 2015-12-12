@@ -24,7 +24,9 @@ public class Bombeiro extends Elemento {
 					fogo.apagar();
 				} else if (e instanceof Vitima) {
 					Vitima vitima = (Vitima) e;
+					vitima.semVitima.down();
 					this.resgatar(vitima);
+					vitima.semVitima.up();
 					return;
 				}
 			}
