@@ -21,7 +21,7 @@ public class Bombeiro extends Elemento {
 			//anda normal
 			for (Elemento e : campos) {
 				if (e instanceof Fogo) {
-					this.amb.mutexBombeiro.up();
+//					this.amb.mutexBombeiro.up();
 					Fogo fogo = (Fogo) e;
 					fogo.apagar();
 				} else if (e instanceof Vitima) {
