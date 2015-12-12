@@ -45,6 +45,7 @@ public class Ambiente extends Frame {
 	public Semaforo mutexSemaforo = new Semaforo(1);
 	public Semaforo mutexElemento = new Semaforo(1);
 	public Semaforo mutexMove = new Semaforo(1);
+	public Semaforo mutexBombeiro = new Semaforo(1);
 	public Semaforo mutexBarreira = new Semaforo(1);
 	public Semaforo barreira = new Semaforo(0);
 	private Semaforo mutexBombeiros = new Semaforo(1);

@@ -15,15 +15,18 @@ public class Bombeiro extends Elemento {
 	public void andar() {
 		int nl;
 		int nc;
+		this.amb.mutexBombeiro.down();
 		ArrayList<Elemento> campos = this.getPercepcao();
 		if (this.vitima == null) {
 			//anda normal
 			for (Elemento e : campos) {
 				if (e instanceof Fogo) {
+					this.amb.mutexBombeiro.up();
 					Fogo fogo = (Fogo) e;
 					fogo.apagar();
 				} else if (e instanceof Vitima) {
 					Vitima vitima = (Vitima) e;
+					this.amb.mutexBombeiro.up();
 //					vitima.semVitima.down();
 					this.resgatar(vitima);
 //					vitima.semVitima.up();
@@ -34,6 +37,7 @@ public class Bombeiro extends Elemento {
 			nl = mv[0];
 			nc = mv[1];
 		} else {
+			this.amb.mutexBombeiro.up();
 			//resgata vitima
 			for (Elemento e : campos) {
 				if (e instanceof Ambulancia) {

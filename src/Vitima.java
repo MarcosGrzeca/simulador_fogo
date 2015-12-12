@@ -83,11 +83,14 @@ public class Vitima extends Elemento {
 	public void run(){
 		this.amb.countVitimas(1);
 		while(true) {
+			this.amb.mutexBombeiro.down();
 			this.semVitima.down();
 			if (this.resgatado == 0) {
+				this.amb.mutexBombeiro.up();
 				this.semVitima.up();
 				this.andar();
 			} else {
+				this.amb.mutexBombeiro.up();
 				this.semVitima.up();
 				try{
 				    Thread.sleep(this.amb.unTempo);
