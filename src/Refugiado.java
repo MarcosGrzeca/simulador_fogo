@@ -16,6 +16,10 @@ public class Refugiado extends Elemento {
 		if (this.isVitima == 0) {
 			ArrayList<Elemento> campos = this.getPercepcao();
 			for (Elemento e : campos) {
+				if (e instanceof Vitima) {
+					Vitima v = (Vitima) e;
+					v.semVitima.up();
+				}
 				if (e instanceof Fogo) {
 					this.isVitima = 1;
 					this.transformaVitima();
@@ -45,7 +49,7 @@ public class Refugiado extends Elemento {
 		try {
 			this.stop();	
 		} catch (Exception e) {
-			System.out.println("Não foi possível parar a Thread Refugiado");
+			System.out.println("Nï¿½o foi possï¿½vel parar a Thread Refugiado");
 		}
 	}
 

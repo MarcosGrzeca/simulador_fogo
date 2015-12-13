@@ -15,6 +15,8 @@ public class Vitima extends Elemento {
 			this.resgatado = 1;
 			this.amb.removeElemento(this.l, this.c);
 			this.amb.getSemaforo(this.l, this.c).up();
+
+			this.semVitima.up();
 		}
 	}
 
@@ -49,7 +51,8 @@ public class Vitima extends Elemento {
 				
 				this.amb.countVitimasSalvas(1);
 				this.amb.countVitimas(-1);
-				
+
+				this.semVitima.up();
 				try {
 					this.stop();
 				} catch (Exception e) {
@@ -58,6 +61,7 @@ public class Vitima extends Elemento {
 				break;
 			} else {
 				this.amb.mutexMove.up();
+				this.semVitima.up();
 				try{
 				    Thread.sleep(this.amb.unTempo);
 				}catch(Exception e){}
@@ -66,8 +70,6 @@ public class Vitima extends Elemento {
 	}
 	
 	public void morrer() {
-		this.semVitima.down();
-		
 		if (this.resgatado == 0) {
 			this.amb.removeElemento(this.l, this.c);
 			this.amb.getSemaforo(this.l, this.c).up();
@@ -83,14 +85,11 @@ public class Vitima extends Elemento {
 	public void run(){
 		this.amb.countVitimas(1);
 		while(true) {
-			this.amb.mutexBombeiro.down();
 			this.semVitima.down();
 			if (this.resgatado == 0) {
-				this.amb.mutexBombeiro.up();
-				this.andar();
 				this.semVitima.up();
+				this.andar();
 			} else {
-				this.amb.mutexBombeiro.up();
 				this.semVitima.up();
 				try{
 				    Thread.sleep(this.amb.unTempo);
