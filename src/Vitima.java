@@ -84,24 +84,24 @@ public class Vitima extends Elemento {
 	public void run(){
 		this.amb.countVitimas(1);
 		while(true) {
-			this.semVitima.up();
+			this.semVitima.down();
 			if (this.resgatado == 0) {
 				this.andar();
-				this.semVitima.down();
+				this.semVitima.up();
 			} else {
-				this.semVitima.down();
+				this.semVitima.up();
 				try{
 				    Thread.sleep(this.amb.unTempo);
 				}catch(Exception e){}
 			}
 			
 			if (this.tempo > this.tempoMaxMorte) {
-				this.semVitima.up();
+				this.semVitima.down();
 				if (this.resgatado == 0) {
 					this.morrer();
-					this.semVitima.down();
+					this.semVitima.up();
 				} else {
-					this.semVitima.down();
+					this.semVitima.up();
 				}
 			}
 			this.tempo++;
