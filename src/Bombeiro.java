@@ -101,7 +101,7 @@ public class Bombeiro extends Elemento {
 	}
 	
 	public void resgatar(Vitima vitima) {
-//		vitima.semVitima.down();
+		vitima.semVitima.down();
 		if (vitima.resgatado == 0) {
 			vitima.resgatar();
 			this.vitima = vitima;
