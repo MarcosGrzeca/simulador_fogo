@@ -15,9 +15,8 @@ public class Vitima extends Elemento {
 			this.resgatado = 1;
 			this.amb.removeElemento(this.l, this.c);
 			this.amb.getSemaforo(this.l, this.c).up();
-
-			this.semVitima.up();
 		}
+		this.semVitima.up();
 	}
 
 	@SuppressWarnings("deprecation")
@@ -85,24 +84,24 @@ public class Vitima extends Elemento {
 	public void run(){
 		this.amb.countVitimas(1);
 		while(true) {
-			this.semVitima.down();
+			this.semVitima.up();
 			if (this.resgatado == 0) {
-				this.semVitima.up();
 				this.andar();
+				this.semVitima.down();
 			} else {
-				this.semVitima.up();
+				this.semVitima.down();
 				try{
 				    Thread.sleep(this.amb.unTempo);
 				}catch(Exception e){}
 			}
 			
 			if (this.tempo > this.tempoMaxMorte) {
-				this.semVitima.down();
+				this.semVitima.up();
 				if (this.resgatado == 0) {
-					this.semVitima.up();
 					this.morrer();
+					this.semVitima.down();
 				} else {
-					this.semVitima.up();
+					this.semVitima.down();
 				}
 			}
 			this.tempo++;
