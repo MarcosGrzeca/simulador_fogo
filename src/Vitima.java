@@ -16,7 +16,6 @@ public class Vitima extends Elemento {
 			this.amb.removeElemento(this.l, this.c);
 			this.amb.getSemaforo(this.l, this.c).up();
 		}
-		this.semVitima.up();
 	}
 
 	@SuppressWarnings("deprecation")
