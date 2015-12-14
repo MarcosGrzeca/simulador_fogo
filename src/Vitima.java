@@ -69,8 +69,10 @@ public class Vitima extends Elemento {
 	
 	public void morrer() {
 		if (this.resgatado == 0) {
+			this.amb.mutexMove.down();
 			this.amb.removeElemento(this.l, this.c);
 			this.amb.getSemaforo(this.l, this.c).up();
+			this.amb.mutexMove.up();
 		}
 		this.amb.countVitimasFatais(1);
 		
@@ -88,9 +90,11 @@ public class Vitima extends Elemento {
 				this.semVitima.up();
 				this.andar();
 			} else {
+				this.amb.mutexMove.down();
 				if (this.amb.getElemento(this.l, this.c) instanceof Vitima) {
 					this.amb.removeElemento(this.l, this.c);
 				}
+				this.amb.mutexMove.up();
 				this.semVitima.up();
 				try{
 				    Thread.sleep(this.amb.unTempo);
@@ -100,7 +104,6 @@ public class Vitima extends Elemento {
 			if (this.tempo > this.tempoMaxMorte) {
 				this.semVitima.down();
 				if (this.resgatado == 0) {
-					this.semVitima.up();
 					this.morrer();
 				} else {
 					this.semVitima.up();

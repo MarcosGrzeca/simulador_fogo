@@ -12,7 +12,6 @@ public class Fogo extends Elemento {
 			this.amb.mutexMove.down();
 			if (this.amb.getSemaforo(randl, randc).getTotal() > 0) {
 				this.move(randl, randc, true);
-//				this.amb.mutexMove.up();
 				break;
 			} else {
 				this.amb.mutexMove.up();
