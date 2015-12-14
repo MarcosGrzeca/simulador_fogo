@@ -69,10 +69,8 @@ public class Vitima extends Elemento {
 	
 	public void morrer() {
 		if (this.resgatado == 0) {
-			this.amb.mutexMove.down();
 			this.amb.removeElemento(this.l, this.c);
 			this.amb.getSemaforo(this.l, this.c).up();
-			this.amb.mutexMove.up();
 		}
 		this.amb.countVitimasFatais(1);
 		
