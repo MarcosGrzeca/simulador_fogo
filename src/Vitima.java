@@ -88,6 +88,9 @@ public class Vitima extends Elemento {
 				this.semVitima.up();
 				this.andar();
 			} else {
+				if (this.amb.getElemento(this.l, this.c) instanceof Vitima) {
+					this.amb.removeElemento(this.l, this.c);
+				}
 				this.semVitima.up();
 				try{
 				    Thread.sleep(this.amb.unTempo);
