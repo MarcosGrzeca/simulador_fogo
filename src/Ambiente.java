@@ -37,7 +37,7 @@ public class Ambiente extends Frame {
 
     private int linhas = 15;
 	private int colunas = 15;
-	public int unTempo = 500;
+	public int unTempo = 200;
 	public int totalBarreira;
 	public int totalPassaramBarreira = 0;
 
@@ -194,6 +194,27 @@ public class Ambiente extends Frame {
         this.countVitimasFatais(0);
         
         this.criaElementos(nroLinhas, nroColunas, nroRefugiados, nroBombeiros, nroFogos, nroAmbulancias);
+        
+//        Ambulancia a = new Ambulancia(0, 2, 2);
+//        a.start();
+//        this.getSemaforo(2, 2).down();
+//
+//        Fogo f = new Fogo(3, 2, 4);
+//        f.start();
+//        this.getSemaforo(2, 4).down();
+//
+//        f = new Fogo(4, 4, 2);
+//        f.start();
+//        this.getSemaforo(4, 2).down();
+//        
+//        Bombeiro b = new Bombeiro(1, 2, 8);
+//        b.start();
+//        this.getSemaforo(2, 8).down();
+//        
+//        Vitima r = new Vitima(2, 2, 9);
+//        r.start();
+//        this.getSemaforo(2, 9).down();
+        
     }
 
     public void criaInterface() {
@@ -304,8 +325,8 @@ public class Ambiente extends Frame {
 	    		randc = Util.rand(0, this.colunas-1);
 	    		
 	    		if (this.getSemaforo(randl, randc).getTotal() > 0) {
-		    		Ambulancia r = new Ambulancia(i, randl, randc);
-			        r.start();
+		    		Ambulancia a = new Ambulancia(i, randl, randc);
+			        a.start();
 			        this.getSemaforo(randl, randc).down();
 			        break;
 	    		}

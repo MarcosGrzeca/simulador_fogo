@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class Bombeiro extends Elemento {
 	public Vitima vitima;
 	private Ambulancia ambulancia;
+	private int movObstaculo = 0;
 
 	public Bombeiro(int id, int l, int c) {
 		super(id, l, c);
@@ -56,6 +57,7 @@ public class Bombeiro extends Elemento {
 				this.resgatarFinal(0);
 				return;
 			}
+			
 			Ambulancia amb_proxima = this.getAmbulanciaMaisProxima();
 			nl = this.l;
 			nc = this.c;
@@ -64,6 +66,7 @@ public class Bombeiro extends Elemento {
 				int[] mv = this.getMovimentoRand();
 				nl = mv[0];
 				nc = mv[1];
+				this.movObstaculo = 0;
 			} else {
 				int f = Util.rand(0, 1);
 				if (f == 0) {
@@ -76,6 +79,26 @@ public class Bombeiro extends Elemento {
 					} else if (amb_proxima.getColuna() > this.c) {
 						nc = this.c + 1;
 					}
+					if (amb_proxima.getColuna() == this.c) {
+						if (this.movObstaculo > 2) {
+							f = Util.rand(0, 1);
+							if (f == 0) {
+								nc = this.c + 1;
+							} else {
+								nc = this.c - 1;
+							}
+						}
+						this.movObstaculo++;
+					} else if (amb_proxima.getLinha() == this.l) {
+						if (this.movObstaculo > 2) {
+							if (f == 0) {
+								nl = this.l + 1;
+							} else {
+								nl = this.l - 1;
+							}
+						}
+						this.movObstaculo++;
+					}
 				} else {
 					if (amb_proxima.getColuna() < this.c) {
 						nc = this.c - 1;
@@ -86,7 +109,32 @@ public class Bombeiro extends Elemento {
 					} else if (amb_proxima.getLinha() > this.l) {
 						nl = this.l + 1;
 					}
+					if (amb_proxima.getColuna() == this.c) {
+						if (this.movObstaculo > 2) {
+							f = Util.rand(0, 1);
+							if (f == 0) {
+								nc = this.c + 1;
+							} else {
+								nc = this.c - 1;
+							}
+						}
+						this.movObstaculo++;
+					} else if (amb_proxima.getLinha() == this.l) {
+						if (this.movObstaculo > 2) {
+							if (f == 0) {
+								nl = this.l + 1;
+							} else {
+								nl = this.l - 1;
+							}
+						}
+						this.movObstaculo++;
+					}
 				}
+			}
+			int valid = this.amb.checkPosition(nl, nc);
+			if (valid == 0) {
+				nc = this.c;
+				nl = this.l;
 			}
 		}
 		this.moveComSemaforo(nl, nc);
