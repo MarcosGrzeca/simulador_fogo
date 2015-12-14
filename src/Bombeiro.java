@@ -20,7 +20,10 @@ public class Bombeiro extends Elemento {
 		if (this.vitima == null) {
 			apenasPrimeiraVitima = true;
 		}
+		
+		this.amb.mutexMove.down();
 		ArrayList<Elemento> campos = this.getPercepcao(apenasPrimeiraVitima);
+		this.amb.mutexMove.up();
 		if (this.vitima == null) {
 			//anda normal
 			for (Elemento e : campos) {
