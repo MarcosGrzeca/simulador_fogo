@@ -20,19 +20,23 @@ public class Bombeiro extends Elemento {
 		if (this.vitima == null) {
 			apenasPrimeiraVitima = true;
 		}
-		
 		this.amb.mutexMove.down();
+		boolean liberouSemaforo = false;
 		ArrayList<Elemento> campos = this.getPercepcao(apenasPrimeiraVitima);
-		this.amb.mutexMove.up();
 		if (this.vitima == null) {
 			//anda normal
 			for (Elemento e : campos) {
 				if (e instanceof Fogo) {
 					Fogo fogo = (Fogo) e;
+					if (!liberouSemaforo) {
+						this.amb.mutexMove.up();
+						liberouSemaforo = true;
+					}
 					fogo.apagar();
 				} else if (e instanceof Vitima) {
 					Vitima vitima = (Vitima) e;
 					this.resgatar(vitima);
+					this.amb.mutexMove.up();
 					return;
 				}
 			}
@@ -49,11 +53,13 @@ public class Bombeiro extends Elemento {
 				if (e instanceof Ambulancia) {
 					this.ambulancia = (Ambulancia) e;
 					this.resgatarFinal(1);
+					this.amb.mutexMove.up();
 					return;
 				}
 			}
 			if (this.vitima.tempo > this.vitima.tempoMaxMorte) {
 				this.resgatarFinal(0);
+				this.amb.mutexMove.up();
 				return;
 			}
 			Ambulancia amb_proxima = this.getAmbulanciaMaisProxima();
@@ -89,6 +95,7 @@ public class Bombeiro extends Elemento {
 				}
 			}
 		}
+		this.amb.mutexMove.up();
 		this.moveComSemaforo(nl, nc);
 	}
 
