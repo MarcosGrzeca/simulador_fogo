@@ -15,7 +15,12 @@ public class Bombeiro extends Elemento {
 	public void andar() {
 		int nl;
 		int nc;
-		ArrayList<Elemento> campos = this.getPercepcao();
+		
+		boolean apenasPrimeiraVitima = false;
+		if (this.vitima == null) {
+			apenasPrimeiraVitima = true;
+		}
+		ArrayList<Elemento> campos = this.getPercepcao(apenasPrimeiraVitima);
 		if (this.vitima == null) {
 			//anda normal
 			for (Elemento e : campos) {
@@ -34,10 +39,10 @@ public class Bombeiro extends Elemento {
 		} else {
 			//resgata vitima
 			for (Elemento e : campos) {
-				if (e instanceof Vitima) {
-					Vitima v = (Vitima) e;
-					v.semVitima.up();
-				}
+//				if (e instanceof Vitima) {
+//					Vitima v = (Vitima) e;
+//					v.semVitima.up();
+//				}
 				if (e instanceof Ambulancia) {
 					this.ambulancia = (Ambulancia) e;
 					this.resgatarFinal(1);

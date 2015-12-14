@@ -14,12 +14,8 @@ public class Refugiado extends Elemento {
 	@Override
 	public void andar() {
 		if (this.isVitima == 0) {
-			ArrayList<Elemento> campos = this.getPercepcao();
+			ArrayList<Elemento> campos = this.getPercepcao(false);
 			for (Elemento e : campos) {
-				if (e instanceof Vitima) {
-					Vitima v = (Vitima) e;
-					v.semVitima.up();
-				}
 				if (e instanceof Fogo) {
 					this.isVitima = 1;
 					this.transformaVitima();

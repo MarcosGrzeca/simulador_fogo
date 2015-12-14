@@ -20,45 +20,78 @@ public class Elemento extends Thread {
 		this.amb = Ambiente.getInstance();
 	}
 	
-	public ArrayList<Elemento> getPercepcao() {
-		int l = this.l;
-		int c = this.c;
-		int flag = 0;
-		ArrayList<Elemento> list = new ArrayList<Elemento>();
-		//cima
-		if (this.amb.checkPosition(l-1, c) == 1) {
-			if (this.amb.getElemento(l-1, c) instanceof Vitima) {
+	/*
+	 * if (this.amb.getElemento(l-1, c) instanceof Vitima) {
 				Vitima v = (Vitima) this.amb.getElemento(l-1, c);
 				v.semVitima.down();
 				flag = 1;
 			}
-			list.add(this.amb.getElemento(l-1, c));
+	 * 
+	 */
+	
+	public ArrayList<Elemento> getPercepcao(boolean apenasPrimeiraVitima) {
+		int l = this.l;
+		int c = this.c;
+		ArrayList<Elemento> list = new ArrayList<Elemento>();
+		//cima
+		if (this.amb.checkPosition(l-1, c) == 1) {
+			if (apenasPrimeiraVitima && this.amb.getElemento(l-1, c) instanceof Vitima) {
+				Vitima v = (Vitima) this.amb.getElemento(l-1, c);
+				v.semVitima.down();
+				if (v.resgatado == 0) {
+					list.add(this.amb.getElemento(l-1, c));
+					return list;
+				} else {
+					v.semVitima.up();
+				}
+			} else {
+				list.add(this.amb.getElemento(l-1, c));
+			}
 		}
 		//baixo
-		if (flag == 0 && this.amb.checkPosition(l+1, c) == 1) {
-			if (this.amb.getElemento(l+1, c) instanceof Vitima) {
+		if (this.amb.checkPosition(l+1, c) == 1) {
+			if (apenasPrimeiraVitima && this.amb.getElemento(l+1, c) instanceof Vitima) {
 				Vitima v = (Vitima) this.amb.getElemento(l+1, c);
 				v.semVitima.down();
-				flag = 1;
+				if (v.resgatado == 0) {
+					list.add(this.amb.getElemento(l+1, c));
+					return list;
+				} else {
+					v.semVitima.up();
+				}
+			} else {
+				list.add(this.amb.getElemento(l+1, c));
 			}
-			list.add(this.amb.getElemento(l+1, c));
 		}
 		//esquerda
-		if (flag == 0 && this.amb.checkPosition(l, c-1) == 1) {
-			if (this.amb.getElemento(l, c-1) instanceof Vitima) {
+		if (this.amb.checkPosition(l, c-1) == 1) {
+			if (apenasPrimeiraVitima && this.amb.getElemento(l, c-1) instanceof Vitima) {
 				Vitima v = (Vitima) this.amb.getElemento(l, c-1);
 				v.semVitima.down();
-				flag = 1;
+				if (v.resgatado == 0) {
+					list.add(this.amb.getElemento(l, c-1));
+					return list;
+				} else {
+					v.semVitima.up();
+				}
+			} else {
+				list.add(this.amb.getElemento(l, c-1));
 			}
-			list.add(this.amb.getElemento(l, c-1));
 		}
 		//direita
-		if (flag == 0 && this.amb.checkPosition(l, c+1) == 1) {
-			if (this.amb.getElemento(l, c+1) instanceof Vitima) {
+		if (this.amb.checkPosition(l, c+1) == 1) {
+			if (apenasPrimeiraVitima && this.amb.getElemento(l, c+1) instanceof Vitima) {
 				Vitima v = (Vitima) this.amb.getElemento(l, c+1);
 				v.semVitima.down();
+				if (v.resgatado == 0) {
+					list.add(this.amb.getElemento(l, c+1));
+					return list;
+				} else {
+					v.semVitima.up();
+				}
+			} else {
+				list.add(this.amb.getElemento(l, c+1));
 			}
-			list.add(this.amb.getElemento(l, c+1));
 		}
 		return list;
 	}
