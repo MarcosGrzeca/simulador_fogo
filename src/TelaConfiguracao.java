@@ -64,17 +64,17 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setText("Simulação combate ao fogo e resgate de vítimas");
+        jLabel1.setText("Simulacao combate ao fogo e resgate de vitimas");
 
-        jLabelLinhas.setText("Nº Linhas");
+        jLabelLinhas.setText("Num. Linhas");
 
         nroColunas.setModel(new javax.swing.SpinnerNumberModel(15, 10, 20, 1));
 
-        jLabelRefugiados.setText("Nº de Refugiados");
+        jLabelRefugiados.setText("Num. de Refugiados");
 
         nroRefugiados.setModel(new javax.swing.SpinnerNumberModel(5, 1, 10, 1));
 
-        botaoIniciar.setText("Iniciar Simulação");
+        botaoIniciar.setText("Iniciar Simulacao");
         botaoIniciar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 botaoIniciarMouseClicked(evt);
@@ -91,19 +91,19 @@ public class TelaConfiguracao extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setText("Autores: Bruno Emer e Marcos Grzeça");
+        jLabel4.setText("Autores: Bruno Emer e Marcos Grzeca");
 
         nroLinhas.setModel(new javax.swing.SpinnerNumberModel(15, 10, 20, 1));
 
-        jLabelColunas.setText("Nº Colunas");
+        jLabelColunas.setText("Num. Colunas");
 
-        jLabelBombeiros.setText("Nº de Bombeiros");
+        jLabelBombeiros.setText("Num. de Bombeiros");
 
         nroBombeiros.setModel(new javax.swing.SpinnerNumberModel(5, 1, 10, 1));
 
-        jLabelFogos.setText("Nº de Fogos");
+        jLabelFogos.setText("Num. de Fogos");
 
-        jLabelAmbulancias.setText("Nº de Ambulâncias");
+        jLabelAmbulancias.setText("Num. de Ambulancias");
 
         nroFogos.setModel(new javax.swing.SpinnerNumberModel(5, 1, 10, 1));
 
@@ -219,7 +219,7 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         
         if ((varNroAmbulancias + varNroBombeiros + varNroFogos + varNroRefugiados) > (varNroLinhas * varNroColunas - 10)) {
             TelaConfiguracao tela = null;
-            JOptionPane.showMessageDialog(tela, "O número total de objetos selecionado não pode ser maior que o espaço do ambiente - 10 posições.");
+            JOptionPane.showMessageDialog(tela, "O numero total de objetos selecionado nao pode ser maior que o espaco do ambiente - 10 posicoes.");
         } else {
         	Main.iniciarSimulacao(varNroLinhas, varNroColunas, varNroRefugiados, varNroBombeiros, varNroFogos, varNroAmbulancias);
         }
@@ -303,14 +303,6 @@ public class TelaConfiguracao extends javax.swing.JFrame {
         e10000.setText(texto);
     }*/
     
-    
-    
-    
-    
-    
-    
-    
-
     // Variables declaration - do not modify                     
     private javax.swing.JButton botaoIniciar;
     private javax.swing.JLabel jLabel1;

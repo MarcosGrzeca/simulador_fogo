@@ -23,8 +23,8 @@ public class Tempo extends Thread {
 			try {
 				this.atualizar();
 				Thread.sleep(this.amb.unTempo);
-				this.amb.printMatriz();
-				this.amb.printSemaforos();
+//				this.amb.printMatriz();
+//				this.amb.printSemaforos();
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -7,7 +7,6 @@ import java.awt.Font;
 import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.Panel;
-import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
@@ -90,7 +89,7 @@ public class Ambiente extends Frame {
 	}
 	
     public Ambiente() {
-    	this.setTitle("Simula��o combate ao fogo e resgate de v�timas");
+    	this.setTitle("Simulacao combate ao fogo e resgate de vitimas");
     	this.setLocation(0, 0);
       this.setResizable(false);
 
@@ -203,8 +202,8 @@ public class Ambiente extends Frame {
 //        f.start();
 //        this.getSemaforo(2, 4).down();
 //
-//        f = new Fogo(4, 4, 2);
-//        f.start();
+//        Fogo f2 = new Fogo(4, 4, 2);
+//        f2.start();
 //        this.getSemaforo(4, 2).down();
 //        
 //        Bombeiro b = new Bombeiro(1, 2, 8);
@@ -214,6 +213,10 @@ public class Ambiente extends Frame {
 //        Vitima r = new Vitima(2, 2, 9);
 //        r.start();
 //        this.getSemaforo(2, 9).down();
+//
+//        b = new Bombeiro(1, 5, 4);
+//        b.start();
+//        this.getSemaforo(5, 4).down();
         
     }
 
@@ -315,7 +318,6 @@ public class Ambiente extends Frame {
     }
     
     public void criaElementos(int nroLinhas, int nroColunas, int nroRefugiados, int nroBombeiros, int nroFogos, int nroAmbulancias) {
-//    	System.out.println("Criando ambiente");
     	
     	int i, randl, randc;
     	this.totalBarreira = nroRefugiados + nroBombeiros + nroFogos + nroAmbulancias;
@@ -375,7 +377,6 @@ public class Ambiente extends Frame {
     	
     	Tempo t = new Tempo(this);
     	t.start();
-//    	System.out.println("Fim criacao ambiente");
     }
     
     public Elemento getElemento(int l, int c) {
@@ -507,7 +508,7 @@ public class Ambiente extends Frame {
 	public void countAmbulancias(int n) {
 		this.mutexAmbulancias.down();
 		this.countAmbulancias += n;
-		this.labAmbulancias.setText("Ambul�ncias: "+this.countAmbulancias);
+		this.labAmbulancias.setText("Ambulancias: "+this.countAmbulancias);
 		this.mutexAmbulancias.up();
 	}
 
@@ -521,28 +522,28 @@ public class Ambiente extends Frame {
 	public void countFogo(int n) {
 		this.mutexFogo.down();
 		this.countFogo += n;
-		this.labFogo.setText("Inc�ndios: "+this.countFogo);
+		this.labFogo.setText("Incendios: "+this.countFogo);
 		this.mutexFogo.up();
 	}
 
 	public void countVitimas(int n) {
 		this.mutexVitimas.down();
 		this.countVitimas += n;
-		this.labVitimas.setText("V�timas: "+this.countVitimas);
+		this.labVitimas.setText("Vitimas: "+this.countVitimas);
 		this.mutexVitimas.up();
 	}
 
 	public void countVitimasSalvas(int n) {
 		this.mutexVitimasSalvas.down();
 		this.countVitimasSalvas += n;
-		this.labVitimasSalvas.setText("V�timas salvas: "+this.countVitimasSalvas);
+		this.labVitimasSalvas.setText("Vitimas salvas: "+this.countVitimasSalvas);
 		this.mutexVitimasSalvas.up();
 	}
 
 	public void countVitimasFatais(int n) {
 		this.mutexVitimasFatais.down();
 		this.countVitimasFatais += n;
-		this.labVitimasFatais.setText("V�timas fatais: "+this.countVitimasFatais);
+		this.labVitimasFatais.setText("Vitimas fatais: "+this.countVitimasFatais);
 		this.mutexVitimasFatais.up();
 	}
 

@@ -9,7 +9,6 @@ public class Semaforo {
 	public synchronized void down(){ //P
 		//bloqueia threads
 		while(this.total == 0){
-//			System.out.println("Dormiu");
 			try {
 				this.wait();
 			} catch(InterruptedException e) {}
@@ -20,9 +19,6 @@ public class Semaforo {
 	public synchronized void up(){ //V
 		//libera threads
 		this.total++;
-//		if (this.total == 2) {
-//			System.out.println("Erro");
-//		}
 		this.notifyAll();
 	}
 
