@@ -37,7 +37,9 @@ public class Bombeiro extends Elemento {
 				} else if (e instanceof Vitima) {
 					Vitima vitima = (Vitima) e;
 					this.resgatar(vitima);
-					this.amb.mutexMove.up();
+					if (!liberouSemaforo) {
+						this.amb.mutexMove.up();
+					}
 					return;
 				}
 			}
