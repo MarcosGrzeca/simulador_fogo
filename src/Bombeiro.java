@@ -24,6 +24,8 @@ public class Bombeiro extends Elemento {
 		this.amb.mutexMove.down();
 		boolean liberouSemaforo = false;
 		ArrayList<Elemento> campos = this.getPercepcao(apenasPrimeiraVitima);
+//		this.amb.mutexMove.up();
+//		liberouSemaforo = true;
 		if (this.vitima == null) {
 			//anda normal
 			for (Elemento e : campos) {
@@ -39,6 +41,7 @@ public class Bombeiro extends Elemento {
 					this.resgatar(vitima);
 					if (!liberouSemaforo) {
 						this.amb.mutexMove.up();
+						liberouSemaforo = true;
 					}
 					return;
 				}
@@ -55,14 +58,20 @@ public class Bombeiro extends Elemento {
 //				}
 				if (e instanceof Ambulancia) {
 					this.ambulancia = (Ambulancia) e;
+					if (!liberouSemaforo) {
+						this.amb.mutexMove.up();
+						liberouSemaforo = true;
+					}
 					this.resgatarFinal(1);
-					this.amb.mutexMove.up();
 					return;
 				}
 			}
 			if (this.vitima.tempo > this.vitima.tempoMaxMorte) {
 				this.resgatarFinal(0);
-				this.amb.mutexMove.up();
+				if (!liberouSemaforo) {
+					this.amb.mutexMove.up();
+					liberouSemaforo = true;
+				}
 				return;
 			}
 			
@@ -145,7 +154,10 @@ public class Bombeiro extends Elemento {
 				nl = this.l;
 			}
 		}
-		this.amb.mutexMove.up();
+		if (!liberouSemaforo) {
+			this.amb.mutexMove.up();
+			liberouSemaforo = true;
+		}
 		this.moveComSemaforo(nl, nc);
 	}
 
