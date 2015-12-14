@@ -2,7 +2,7 @@ public class Vitima extends Elemento {
 	public int tempo;
 	public int tempoMaxMorte = 50;
 	public int resgatado = 0;
-	protected Semaforo semVitima = new Semaforo(1);
+	public Semaforo semVitima = new Semaforo(1);
 	
 	public Vitima(int id, int l, int c) {
 		super(id, l, c);
@@ -85,8 +85,8 @@ public class Vitima extends Elemento {
 		while(true) {
 			this.semVitima.down();
 			if (this.resgatado == 0) {
-				this.andar();
 				this.semVitima.up();
+				this.andar();
 			} else {
 				this.semVitima.up();
 				try{
@@ -97,8 +97,8 @@ public class Vitima extends Elemento {
 			if (this.tempo > this.tempoMaxMorte) {
 				this.semVitima.down();
 				if (this.resgatado == 0) {
-					this.morrer();
 					this.semVitima.up();
+					this.morrer();
 				} else {
 					this.semVitima.up();
 				}
