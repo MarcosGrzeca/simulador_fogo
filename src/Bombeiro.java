@@ -177,7 +177,7 @@ public class Bombeiro extends Elemento {
 	}
 	
 	public void resgatar(Vitima vitima) {
-		if (vitima.resgatado == 0) {
+		if (vitima.resgatado == 0 && this.bt != null) {
 			vitima.resgatar();
 			this.vitima = vitima;
 			this.bt.setIcon(this.amb.getBotaoElemento(this));
